@@ -1,8 +1,10 @@
+"use client"
+
 import '../styles/globals.css'
 
 import { AppContext } from './context/AppContext'
 import { SideAdContext } from './context/SideAdContext'
-
+import { SessionProvider } from "next-auth/react";
 
 export default function RootLayout({   children  } : {
     children: React.ReactNode 
@@ -11,7 +13,7 @@ export default function RootLayout({   children  } : {
     return <html lang="en">
 
       <body>
-
+       <SessionProvider>
             <AppContext>
                   <SideAdContext>
                        
@@ -19,7 +21,7 @@ export default function RootLayout({   children  } : {
                       
                   </SideAdContext>
             </AppContext>
-
+      </SessionProvider>
       </body>
       </html>
 

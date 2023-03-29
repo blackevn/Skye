@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const AuthPage = ({response}: any) => {
  
-const { formData, handleFormChange, handleSubmit, isSignup, switchAuth, showPassword, handlePassword, }  = useForm() 
+const { formData, handleFormChange, handleSubmit, isSignup, switchAuth, showPassword, handlePassword, session, signIn, signOut }  = useForm() 
 
 const inputIcon = showPassword ? faEye : faEyeSlash
 
@@ -118,7 +118,7 @@ console.log(response );
 
                   // Sign in
                   
-                  <div className="space-y-6 md:w-[300px] lg:w-[400px] xl:w-[500px]">
+                  <div className="space-y-2 md:w-[300px] lg:w-[400px] xl:w-[500px]">
 
                     <GroupedInput   
                     type="email"

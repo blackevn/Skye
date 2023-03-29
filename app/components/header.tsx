@@ -7,13 +7,17 @@ import { useSideContext } from "../context/SideAdContext";
 import Button from "./button";
 import { useWidth } from "../hooks";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const Nav = () => {
 
     const { toggle, handleToggle, user } = useAppContext()
     const [ width ] = useWidth()
     const { handleSideToggle, sideToggle } = useSideContext()
-   
+    const { data } = useSession()
+
+    console.log(data);
+    
 
   return <>
 
@@ -57,6 +61,7 @@ const Nav = () => {
                     icon={faArrowAltCircleRight}
                     text="Sign in" 
                     modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn bottom-0 right-0 text-white"
+                    clickEvent={signIn}
                     />
                 </Link>
 
