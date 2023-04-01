@@ -60,14 +60,16 @@ console.log(response );
 
                     <div className="grid lg:grid-cols-2 gap-6">
 
-                    <GroupedInput   
+                     <GroupedInput   
                      type="text"
                      placeholder="First name"
                      name="firstName"
                      value={formData.firstName}
                      onChange={handleFormChange}
-                    >
+                     >
+
                     <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
+
                     </GroupedInput>
 
                     <GroupedInput   
@@ -110,7 +112,7 @@ console.log(response );
                     onChange={handleFormChange}
                     >
                     <span className="bg-white"><FontAwesomeIcon onClick={handlePassword} icon={inputIcon}/></span>
-                    </GroupedInput>
+                    </GroupedInput> 
 
                   </div> 
                   
@@ -118,7 +120,7 @@ console.log(response );
 
                   // Sign in
                   
-                  <div className="space-y-2 md:w-[300px] lg:w-[400px] xl:w-[500px]">
+                  <div className="space-y-6 md:w-[300px] lg:w-[400px] xl:w-[500px]">
 
                     <GroupedInput   
                     type="email"
@@ -152,7 +154,7 @@ console.log(response );
                       /> 
 
                       <Button 
-                   
+                      clickEvent={() => signIn("google", {callbackUrl: "http://localhost:3000/auth"})}
                       text="Google" 
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}
