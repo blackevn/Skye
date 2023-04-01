@@ -154,7 +154,7 @@ console.log(response );
                       /> 
 
                       <Button 
-                      clickEvent={() => signIn("google", {callbackUrl: "http://localhost:3000/auth"})}
+                      clickEvent={() => signIn("google", {callbackUrl: "http://localhost:3000/api/auth/callback/google"})}
                       text="Google" 
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}
