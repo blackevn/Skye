@@ -2,9 +2,7 @@
 import { useState } from "react";
 import useToggle from "./useToggle";
 import { useAppContext } from "../context/AppContext";
-import { useGoogleLogin } from "@react-oauth/google"
 import { useSession, signIn, signOut } from "next-auth/react"
-import axios from "axios";
 
 export type FormAuthData = {
   firstName: string;

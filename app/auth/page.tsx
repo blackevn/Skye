@@ -1,9 +1,7 @@
 import AuthPage from "./AuthPage";
-import axios from "axios";
-import { json } from "stream/consumers";
+
 
 const Auth = async () => {
-
 
   const response = await fetch('http://localhost:3000/api/hello', {
 

@@ -1,24 +1,32 @@
 'use client';
 
-import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowAltCircleRight, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import Button from "./button";
 import NavLink from "./navlink";
 import { useAppContext } from "../context/AppContext"; 
 import { useSession, signIn, signOut } from "next-auth/react"
 import Link from "next/link";
 import Avatar from "./avatar";
+import { useRouter } from "next/navigation";
 
 
 const Sidebar = (  ) => {
 
     const { toggle, user } = useAppContext()
     const { data: session } = useSession()
-    
+    const router = useRouter()
 
+    const handleLogout = () => {
 
+        signOut()
+        localStorage.clear()
+        router.push("/auth")
+
+    }
+   
   return <>
 
-            <div className={` ${toggle ? "sm:w-[400px] " : "sm:w-[90px]"} p-4 relative flex flex-col justify-between`}>
+            <div className={` ${toggle ? "sm:w-[400px] " : "sm:w-[90px]"} p-4 flex flex-col justify-between box-border`}>
 
                 <div className="space-y-4">
                     
@@ -58,17 +66,23 @@ const Sidebar = (  ) => {
 
                 </div>
 
-                { session?.user && <div className="absolutebottom-0 w-full left-0 p-4">
+                { session?.user && <div className={` w-full left-0 p-4 relative ${!toggle && "h-16"}`}>
                     
-                  { toggle ? <div className="h-[100px] w-full rounded-lg bg-gray-400 ">
+                  { toggle ? <div className="h-[150px] w-full rounded-lg bg-gray-300 p-4">
+
+                    <div className="flex justify-between">
+
+                    <Avatar src={session?.user?.image} image={session?.user?.image}/>
                     
-                    <Button clickEvent={signOut}/>
-                    
+                    <Button icon={faSignOut} text="Logout" clickEvent={handleLogout}/>
+                                        
+                    </div>
+
                     </div>
 
                    : 
                    
-                   <div className="w-full grid place-items-center pr-4"><Avatar src={session?.user?.image} image={session?.user?.image}/></div>}
+                   <div className=" grid place-items-center absolute w-full left-0"><Avatar src={session?.user?.image} image={session?.user?.image}/></div>}
                     
                 </div> }
                 

@@ -49,8 +49,9 @@ const Nav = () => {
                 <div className=" flex gap-8 items-center">
 
                
-              { !session?.user && <div className={`${ width <= 700 ? "block" : "hidden" } `}>
+              <div className={`${ width <= 700 ? "block" : "hidden" } `}>
 
+              { !session?.user ? 
                 <Link href="/">
                   <Button 
                     icon={faArrowAltCircleRight}
@@ -60,7 +61,13 @@ const Nav = () => {
                     />
                 </Link>
 
-                </div> }
+                :
+
+                <UserDropdown>
+                <Avatar src={session?.user?.image} image={session?.user?.image}/>
+                </UserDropdown> }
+
+                </div> 
           
                 <div className="hidden lg:grid place-items-center">
 
