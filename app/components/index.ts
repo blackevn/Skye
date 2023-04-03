@@ -10,10 +10,15 @@ import TextArea from "./textarea";
 import BottomNav from "./bottomNav";
 import GroupedInput from "./groupedInput";
 import Form from "./form";
+import Avatar from "./avatar";
+import UserDropdown from "./userDropdown";
 
 
 export {
 
-    Button, Footer, Input, Nav, Sidebar, Select, Toggle, NavLink, TextArea, BottomNav, GroupedInput, Form   
+    Button, Footer, Input, Nav, 
+    Sidebar, Select, Toggle, NavLink, 
+    TextArea, BottomNav, GroupedInput, 
+    Form, Avatar, UserDropdown   
 
 }

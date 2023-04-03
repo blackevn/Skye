@@ -7,13 +7,19 @@ import { useSideContext } from "../context/SideAdContext";
 import Button from "./button";
 import { useWidth } from "../hooks";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react"
+import Avatar from "./avatar";
+import UserDropdown from "./userDropdown";
 
 const Nav = () => {
 
     const { toggle, handleToggle, user } = useAppContext()
     const [ width ] = useWidth()
     const { handleSideToggle, sideToggle } = useSideContext()
-   
+    const { data: session } = useSession()
+
+    console.log(session?.user);
+    
 
   return <>
 
@@ -40,7 +46,30 @@ const Nav = () => {
                 
                 </div>
 
-               <div className="hidden lg:grid place-items-center">
+                <div className=" flex gap-8 items-center">
+
+               
+              <div className={`${ width <= 700 ? "block" : "hidden" } `}>
+
+              { !session?.user ? 
+                <Link href="/">
+                  <Button 
+                    icon={faArrowAltCircleRight}
+                    text="Sign in" 
+                    modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn bottom-0 right-0 text-white"
+                    clickEvent={signIn}
+                    />
+                </Link>
+
+                :
+
+                <UserDropdown>
+                <Avatar src={session?.user?.image} image={session?.user?.image}/>
+                </UserDropdown> }
+
+                </div> 
+          
+                <div className="hidden lg:grid place-items-center">
 
                 <Toggle
                     on={faAngleRight}
@@ -49,19 +78,9 @@ const Nav = () => {
                     toggleEvent={handleSideToggle}
                     />
 
-              </div>
-              { !user && <div className={`${ width <= 700 ? "block" : "hidden" } `}>
-
-                <Link href="/">
-                  <Button 
-                    icon={faArrowAltCircleRight}
-                    text="Sign in" 
-                    modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn bottom-0 right-0 text-white"
-                    />
-                </Link>
-
-                </div> }
-
+                </div>
+          
+                </div>
 
             </div>
 

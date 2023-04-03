@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const AuthPage = ({response}: any) => {
  
-const { formData, handleFormChange, handleSubmit, isSignup, switchAuth, showPassword, handlePassword, }  = useForm() 
+const { formData, handleFormChange, handleSubmit, isSignup, switchAuth, showPassword, handlePassword, session, signIn, signOut }  = useForm() 
 
 const inputIcon = showPassword ? faEye : faEyeSlash
 
@@ -60,14 +60,16 @@ console.log(response );
 
                     <div className="grid lg:grid-cols-2 gap-6">
 
-                    <GroupedInput   
+                     <GroupedInput   
                      type="text"
                      placeholder="First name"
                      name="firstName"
                      value={formData.firstName}
                      onChange={handleFormChange}
-                    >
+                     >
+
                     <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
+
                     </GroupedInput>
 
                     <GroupedInput   
@@ -110,7 +112,7 @@ console.log(response );
                     onChange={handleFormChange}
                     >
                     <span className="bg-white"><FontAwesomeIcon onClick={handlePassword} icon={inputIcon}/></span>
-                    </GroupedInput>
+                    </GroupedInput> 
 
                   </div> 
                   
@@ -152,7 +154,7 @@ console.log(response );
                       /> 
 
                       <Button 
-                   
+                      clickEvent={() => signIn("google", {callbackUrl: "http://localhost:3000/api/auth/callback/google"})}
                       text="Google" 
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}

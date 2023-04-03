@@ -2,8 +2,7 @@
 import { useState } from "react";
 import useToggle from "./useToggle";
 import { useAppContext } from "../context/AppContext";
-import { useGoogleLogin } from "@react-oauth/google"
-import axios from "axios";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 export type FormAuthData = {
   firstName: string;
@@ -32,7 +31,7 @@ const useForm = () => {
   const {  showPassword, handlePassword } = useAppContext()
   const [formData, setFormData] = useState<FormAuthData>(initialAuthData);
   const [ isSignup, switchAuth ] = useToggle(true)
-  
+  const { data: session } = useSession()
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -66,7 +65,8 @@ const useForm = () => {
     switchAuth,
     showPassword, 
     handlePassword, 
-      
+    session, signIn, signOut 
+
   }
 }
 
