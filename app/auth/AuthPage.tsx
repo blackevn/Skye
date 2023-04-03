@@ -154,7 +154,7 @@ console.log(response );
                       /> 
 
                       <Button 
-                      clickEvent={() => signIn("google", {callbackUrl: "https://skye-du6p4rckq-blackevn.vercel.app/auth/api/auth/callback/google"})}
+                      clickEvent={() => signIn("google", {callbackUrl: "https://skye-git-auth-blackevn.vercel.app/auth/api/auth/callback/google"})}
                       text="Google" 
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}
