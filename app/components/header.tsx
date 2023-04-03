@@ -8,15 +8,17 @@ import Button from "./button";
 import { useWidth } from "../hooks";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react"
+import Avatar from "./avatar";
+import UserDropdown from "./userDropdown";
 
 const Nav = () => {
 
     const { toggle, handleToggle, user } = useAppContext()
     const [ width ] = useWidth()
     const { handleSideToggle, sideToggle } = useSideContext()
-    const { data } = useSession()
+    const { data: session } = useSession()
 
-    console.log(data);
+    console.log(session?.user);
     
 
   return <>
@@ -44,17 +46,10 @@ const Nav = () => {
                 
                 </div>
 
-               <div className="hidden lg:grid place-items-center">
+                <div className=" flex gap-8 items-center">
 
-                <Toggle
-                    on={faAngleRight}
-                    off={faAngleLeft}
-                    checked={sideToggle}
-                    toggleEvent={handleSideToggle}
-                    />
-
-              </div>
-              { !user && <div className={`${ width <= 700 ? "block" : "hidden" } `}>
+               
+              { !session?.user && <div className={`${ width <= 700 ? "block" : "hidden" } `}>
 
                 <Link href="/">
                   <Button 
@@ -66,7 +61,19 @@ const Nav = () => {
                 </Link>
 
                 </div> }
+          
+                <div className="hidden lg:grid place-items-center">
 
+                <Toggle
+                    on={faAngleRight}
+                    off={faAngleLeft}
+                    checked={sideToggle}
+                    toggleEvent={handleSideToggle}
+                    />
+
+                </div>
+          
+                </div>
 
             </div>
 
