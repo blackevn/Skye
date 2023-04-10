@@ -127,7 +127,7 @@ console.log(response )
                     value={formData.password}
                     onChange={handleFormChange}
                     >
-                    <span className="bg-white rounded-2xl " onClick={handlePassword}><FontAwesomeIcon icon={inputIcon}/></span>
+                    <span className="bg-white rounded-2xl tras" onClick={handlePassword}><FontAwesomeIcon icon={inputIcon}/></span>
                     </GroupedInput>
                   
                   </div>
