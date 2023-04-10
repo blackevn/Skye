@@ -1,11 +1,11 @@
 import { NavigationLinks } from "@/types/interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useNav } from "../hooks";
+import { useLinks } from "../hooks";
 
 const BottomNav = () => {
 
-  const { links } = useNav()
+  const { links } = useLinks()
 
    return <>
 

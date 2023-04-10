@@ -1,18 +1,20 @@
 "use client"
 
 import useForm, { FormAuthData } from "../hooks/useForm";
-import { Input, GroupedInput, Form, Button } from "../components";
+import { GroupedInput, Form, Button } from "../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight, faAt, faEye, faEyeSlash, faRegistered, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowAltCircleRight, faAt, faEye, faEyeSlash, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { NextPage } from "next";
+import { ReactNode } from "react";
 
 const AuthPage = ({response}: any) => {
  
-const { formData, handleFormChange, handleSubmit, isSignup, switchAuth, showPassword, handlePassword, session, signIn, signOut }  = useForm() 
+const { formData, handleFormChange, handleSubmit, isSignup, switchAuth, showPassword, handlePassword, session, signIn, defaultPrevent }  = useForm() 
 
 const inputIcon = showPassword ? faEye : faEyeSlash
 
-console.log(response );
+console.log(response )
 
  
   return <>
@@ -23,7 +25,7 @@ console.log(response );
 
               {/* Image section */}
 
-              <div className="h-full md:w-[50%] bg-black hidden md:block">
+              <div className="h-full md:w-[50%] hidden md:block">
 
               </div>
 
@@ -50,39 +52,25 @@ console.log(response );
 
                 <div className="w-[90%] h-[80%] grid place-items-center ">
 
-                  <Form onSubmit={handleSubmit} label={ isSignup ? "Sign up" : "Sign in"} modifier="space-y-4">
+                  <Form onSubmit={defaultPrevent} label={ isSignup ? "Sign up" : "Sign in"} modifier="space-y-4 md:w-[300px] lg:w-[400px] xl:w-[500px]">
 
                   {isSignup ? 
 
                   // Sign up
                   
                   <div className="space-y-6">
-
-                    <div className="grid lg:grid-cols-2 gap-6">
-
+            
                      <GroupedInput   
                      type="text"
-                     placeholder="First name"
-                     name="firstName"
-                     value={formData.firstName}
+                     placeholder="Username"
+                     name="username"
+                     value={formData.username}
                      onChange={handleFormChange}
                      >
 
                     <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
 
                     </GroupedInput>
-
-                    <GroupedInput   
-                    type="text"
-                    placeholder="Last name"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleFormChange}
-                    >
-                    <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
-                    </GroupedInput>
-
-                    </div>
                     
                     <GroupedInput 
                     type="email"
@@ -120,7 +108,7 @@ console.log(response );
 
                   // Sign in
                   
-                  <div className="space-y-6 md:w-[300px] lg:w-[400px] xl:w-[500px]">
+                  <div className="space-y-6 ">
 
                     <GroupedInput   
                     type="email"
@@ -135,7 +123,7 @@ console.log(response );
                     <GroupedInput   
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
-                    name="email"
+                    name="password"
                     value={formData.password}
                     onChange={handleFormChange}
                     >
@@ -147,7 +135,7 @@ console.log(response );
                   }
 
                       <Button 
-                      clickEvent={handleSubmit} 
+                      clickEvent={() => handleSubmit(formData)} 
                       text="Sign up" 
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}

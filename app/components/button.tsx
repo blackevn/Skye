@@ -10,8 +10,7 @@ const Button = (props: any) => {
   
   const { height } = useAppContext()
 
-  console.log(height);
-  
+ 
 
     const {
 

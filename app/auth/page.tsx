@@ -3,7 +3,7 @@ import AuthPage from "./AuthPage";
 
 const Auth = async () => {
 
-  const response = await fetch('http://localhost:3000/api/hello', {
+  const response = await fetch('http://localhost:3000/api/post', {
 
       method: 'GET',
      

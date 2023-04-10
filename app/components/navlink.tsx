@@ -5,9 +5,9 @@ import { useAppContext } from "../context/AppContext";
 
 const NavLink = (props: any) => {
 
-  const { href, children, name } = props
+  const { href = "/", name = "Link", icon = faHome, notif = 0} = props
 
-  const { toggle } = useAppContext()
+  const { toggle, user } = useAppContext()
 
 
   return <>
@@ -16,7 +16,7 @@ const NavLink = (props: any) => {
 
               <div className="flex gap-4 items-center ">
 
-              <FontAwesomeIcon icon={faHome}/>
+              <FontAwesomeIcon icon={icon}/>
 
               {toggle &&  <p className="hidden sm:block ">{name}</p>}
 
@@ -24,7 +24,7 @@ const NavLink = (props: any) => {
 
             {toggle &&   <div className="hidden sm:block">
                
-                {children}
+                { notif > 0 && <span className="badge">{notif}</span> }
 
               </div>}
             
@@ -34,11 +34,5 @@ const NavLink = (props: any) => {
   
 };
 
-NavLink.defaultProps = {
-
-  href: "/",
-  name: "Link"
-
-}
 
 export default NavLink;

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react"
 
-
 const useWidth = () => {
+
   const [width, setWidth] = useState(0);
 
   const handleResize = () => {

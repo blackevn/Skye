@@ -1,6 +1,6 @@
 'use client';
 
-import { faBars, faXmark, faArrowAltCircleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark, faArrowAltCircleRight, faAngleLeft, faAngleRight, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import Toggle from "./toggle";
 import { useAppContext } from "../context/AppContext";
 import { useSideContext } from "../context/SideAdContext";
@@ -17,9 +17,7 @@ const Nav = () => {
     const [ width ] = useWidth()
     const { handleSideToggle, sideToggle } = useSideContext()
     const { data: session } = useSession()
-
-    console.log(session?.user);
-    
+  
 
   return <>
 
@@ -42,7 +40,7 @@ const Nav = () => {
                     toggleEvent={handleToggle}
                 />
 
-                <p className="font-black text-2xl">blackevn</p>
+                <p className="font-black text-2xl">Skye</p>
                 
                 </div>
 
@@ -52,19 +50,20 @@ const Nav = () => {
               <div className={`${ width <= 700 ? "block" : "hidden" } `}>
 
               { !session?.user ? 
-                <Link href="/">
+                <Link href="/auth">
                   <Button 
                     icon={faArrowAltCircleRight}
                     text="Sign in" 
                     modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn bottom-0 right-0 text-white"
-                    clickEvent={signIn}
                     />
                 </Link>
 
                 :
 
                 <UserDropdown>
-                <Avatar src={session?.user?.image} image={session?.user?.image}/>
+                  <h1>{session?.user?.name}</h1>
+                  <h1>{session?.user?.email}</h1>
+                  <Button clickEvent={signOut} modifier="btn" text="Sign out" icon={faSignOut}/>
                 </UserDropdown> }
 
                 </div> 

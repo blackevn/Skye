@@ -12,6 +12,12 @@ import GroupedInput from "./groupedInput";
 import Form from "./form";
 import Avatar from "./avatar";
 import UserDropdown from "./userDropdown";
+import PostForm from "./Forms/postForm";
+import DiscoveryPanel from "./Discovery/discovery";
+import People from "./People/people";
+import AdBox from "./adBox";
+import VideoCard from "./videoCard";
+import DiscoveryLine from "./Discovery/discoveryLine";
 
 
 export {
@@ -19,6 +25,7 @@ export {
     Button, Footer, Input, Nav, 
     Sidebar, Select, Toggle, NavLink, 
     TextArea, BottomNav, GroupedInput, 
-    Form, Avatar, UserDropdown   
+    Form, Avatar, UserDropdown, PostForm,
+    DiscoveryPanel, People, AdBox, VideoCard, DiscoveryLine   
 
 }

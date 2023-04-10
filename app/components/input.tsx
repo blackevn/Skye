@@ -31,7 +31,7 @@ const Input = (props: any) => {
 
       ref={ref}
       className={`
-       rounded-lg
+       rounded-xl
        p-1.5
        px-2
        ${bgColor}
