@@ -4,7 +4,7 @@ import { Video } from "@/types/interfaces";
 
 const page = async () => {
 
-  const staticData = await fetch(`http://localhost:3000/api/post`, { 
+  const staticData = await fetch(`/api/post`, { 
   method: "GET",  
   }, );
 
