@@ -2,13 +2,15 @@ import Link from "next/link";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppContext } from "../context/AppContext"; 
+import { useSession } from "next-auth/react";
+
 
 const NavLink = (props: any) => {
 
   const { href = "/", name = "Link", icon = faHome, notif = 0} = props
 
-  const { toggle, user } = useAppContext()
-
+  const { toggle } = useAppContext()
+ const { data: session} = useSession()
 
   return <>
 
@@ -24,7 +26,7 @@ const NavLink = (props: any) => {
 
             {toggle &&   <div className="hidden sm:block">
                
-                { notif > 0 && <span className="badge">{notif}</span> }
+                {session?.user && notif > 0 && <span className="badge">{notif}</span> }
 
               </div>}
             

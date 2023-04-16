@@ -1,21 +1,8 @@
 "use client"
 
-import {useContext, createContext} from "react";
-import {useToggle, useWidth, useHeight} from "../hooks";
-
-interface ContextData  {
-
-  toggle: any
-  handleToggle: any
-  width: any
-  user: boolean 
-  adSectionToggle: any
-  handleAdSectionToggle: any
-  height: number
-  showPassword: any
-  handlePassword: any
-}
-
+import { useContext, createContext } from "react";
+import { useToggle, useWidth, useHeight } from "../hooks";
+import { ContextData, IProps } from "@/types/interfaces";
 
 const Context = createContext<ContextData>({
 
@@ -31,7 +18,7 @@ const Context = createContext<ContextData>({
   
  })
 
-export const AppContext = (props: any) => {
+export const AppContext = (props: IProps) => {
 
   const [ toggle, handleToggle ] = useToggle(false)
   const [ adSectionToggle, handleAdSectionToggle ] = useToggle()

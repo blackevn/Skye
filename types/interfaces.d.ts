@@ -5,6 +5,26 @@ export interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
     src: any
   }
 
+ export interface Side {
+    sideToggle: any
+    handleSideToggle: any
+}
+  
+export interface ContextData  {
+
+  toggle: any
+  handleToggle: any
+  width: any
+  user: boolean 
+  adSectionToggle: any
+  handleAdSectionToggle: any
+  height: number
+  showPassword: any
+  handlePassword: any
+
+}
+
+
   export interface NavigationLinks {
 
     id: number
@@ -26,25 +46,29 @@ export interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   export interface IProps {
 
     children: React.ReactNode | JSX.Element | JSX.Element[]
-    videos: Video[]
-  
+      
   }
-
  
   export interface Video {
+
     caption: string;
+
     video: {
+      caption: string;
       asset: {
         _id: string;
         url: string;
       };
     };
+
     _id: string;
+    
     postedBy: {
       _id: string;
       userName: string;
       image: string;
     };
+
     likes: {
       postedBy: {
         _id: string;
@@ -52,6 +76,7 @@ export interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
         image: string;
       };
     }[];
+
     comments: {
       comment: string;
       _key: string;
@@ -59,40 +84,11 @@ export interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
         _ref: string;
       };
     }[];
+    
     userId: string;
   }
   
-  export interface Video {
-    caption: string;
-    video: {
-      asset: {
-        _id: string;
-        url: string;
-      };
-    };
-    _id: string;
-    postedBy: {
-      _id: string;
-      userName: string;
-      image: string;
-    };
-    likes: {
-      postedBy: {
-        _id: string;
-        userName: string;
-        image: string;
-      };
-    }[];
-    comments: {
-      comment: string;
-      _key: string;
-      postedBy: {
-        _ref: string;
-      };
-    }[];
-    userId: string;
-  }
-  
+
   export interface IUser {
     _id: string;
     _type: string;

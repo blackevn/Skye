@@ -24,23 +24,27 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials: any, req: Pick<RequestInternal, "body" | "query" | "headers"
        | "method">) {
 
-        if (!credentials?.email || !credentials?.password) {
-         connectDatabase().catch( error => { error: "Connection failed"})
-        }
-        
-        const user = await Users.findOne({ email: credentials?.email });
+         await connectDatabase().catch( error => { error: "Connection failed"})
 
-        if (!user) {
-          throw new Error('This email does not match a registered account');
-        }
+         if (!credentials?.email || !credentials?.password) {
 
-        const isCorrectPassword = await compare( credentials?.password, user.password )
+            const user = await Users.findOne({ email: credentials?.email });
 
-        if (!isCorrectPassword || user.email !== credentials?.email) {
-          throw new Error('Password incorrect');
+            if (!user) {
+              throw new Error('This email does not match a registered account');
+            }
+    
+            const isCorrectPassword = await compare( credentials?.password, user.password )
+    
+            if (!isCorrectPassword || user.email !== credentials?.email) {
+              throw new Error('Password incorrect');
+            }
+            
+            return user;
+
         }
-        
-        return user;
+             
+     
       }
     })
   ],

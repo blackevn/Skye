@@ -7,6 +7,16 @@ body{
     transition: all 1s ease;
 }
 
+
+p, h1, h2, h3, h4, h5, h6{
+  margin: 0px;
+  padding: 0px;
+}
+
+.authLeft {
+    background-image: url('/neighborhood.svg');
+    }
+
 .navLink{
 
     @apply h-[53px] w-full flex items-center p-5 rounded-2xl
@@ -14,3 +24,4 @@ body{
            justify-between
 
 }
+

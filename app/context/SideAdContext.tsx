@@ -2,11 +2,7 @@
 
 import {useContext, createContext } from "react";
 import { useToggle } from "../hooks";
-
-type Side = {
-    sideToggle: any
-    handleSideToggle: any
-}
+import { IProps, Side } from "@/types/interfaces";
 
 const SideContext = createContext<Side>({
 
@@ -15,7 +11,7 @@ const SideContext = createContext<Side>({
 
 }) 
 
-export const SideAdContext = ({ children }: any) => {
+export const SideAdContext = ({ children }: IProps) => {
 
     const [ sideToggle, handleSideToggle ] = useToggle(true)
 

@@ -9,7 +9,7 @@ const BottomNav = () => {
 
    return <>
 
-            <div className="fixed flex bottom-0 w-screen p-4 justify-between items-center text-xl bg-white">
+            <div className="fixed flex bottom-0 w-screen p-4 justify-between items-center text-xl bg-white z-[99999]">
 
                {
                 

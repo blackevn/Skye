@@ -19,7 +19,7 @@ const Auth = async () => {
   
 
   return <>
-            <AuthPage response={response}/>
+            <AuthPage/>
         </>
 };
 

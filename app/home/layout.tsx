@@ -12,7 +12,6 @@ import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react"
 
 
-
 export default function HomeLayout({
 
   children,
@@ -30,7 +29,7 @@ export default function HomeLayout({
       
   return <>
 
-    <div className="box-border" >
+    <div className="box-border">
       
       <div>
 
@@ -42,26 +41,28 @@ export default function HomeLayout({
           
           <Sidebar/>
 
-          :
+           :
 
           <BottomNav/>
         
           }
 
-          <div className=' w-full lg:grid lg:grid-cols-12'>
+          <div className='w-full lg:grid lg:grid-cols-12'>
 
-            <div className={`${sideToggle ? "lg:col-span-9" : "lg:col-span-12" } overflow-scroll py-6 w-full h-full `}>
+            <div className={`lg:col-span-9 overflow-scroll p-4 w-full h-full`}>
 
             { children }
 
             </div>
 
-        { sideToggle &&  <div className={`hidden lg:flex lg:col-span-3 px-4 space-y-8 justify-between flex-col h-full overflow-auto max-w-[365px]`}>
+        <div className={`hidden lg:flex lg:col-span-3 px-4 space-y-8 justify-between flex-col h-full overflow-auto max-w-[365px]`}>
           
         { session?.user ?  <div className="space-y-8">
-          <DiscoveryPanel/>
-          <AdBox/>
-          <People/>
+
+            <DiscoveryPanel/>
+            <AdBox/>
+            <People/>
+
           </div> 
           
           :  
@@ -70,7 +71,7 @@ export default function HomeLayout({
 
               <div className={` rounded-3xl relative shadow-xl w-full gap-2 grid p-4`} >
 
-              <p className="text-gray-500 lg:font-medium ">Sign in to create posts, like, comment on other posts and follow others.</p>
+              <p className="text-gray-500 lg:font-medium">Sign in to create posts, like, comment, and follow others.</p>
 
               <div className="w-full">
 
@@ -94,8 +95,7 @@ export default function HomeLayout({
 
           </div> 
 
-        }
-
+     
           </div>
        
         </div>

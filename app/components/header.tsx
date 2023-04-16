@@ -47,7 +47,7 @@ const Nav = () => {
                 <div className=" flex gap-8 items-center">
 
                
-              <div className={`${ width <= 700 ? "block" : "hidden" } `}>
+              <div className={`${ width <= 1024 ? "block" : "hidden" } `}>
 
               { !session?.user ? 
                 <Link href="/auth">
@@ -60,15 +60,19 @@ const Nav = () => {
 
                 :
 
+                <div className={`${width >= 700 && "hidden"}`}>
                 <UserDropdown>
                   <h1>{session?.user?.name}</h1>
                   <h1>{session?.user?.email}</h1>
                   <Button clickEvent={signOut} modifier="btn" text="Sign out" icon={faSignOut}/>
-                </UserDropdown> }
+                </UserDropdown>
+                </div>
+
+                 }
 
                 </div> 
           
-                <div className="hidden lg:grid place-items-center">
+                {/* <div className="hidden lg:grid place-items-center">
 
                 <Toggle
                     on={faAngleRight}
@@ -77,7 +81,7 @@ const Nav = () => {
                     toggleEvent={handleSideToggle}
                     />
 
-                </div>
+                </div> */}
           
                 </div>
 

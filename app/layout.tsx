@@ -16,8 +16,13 @@ export default function RootLayout({   children  } : {
        <SessionProvider>
             <AppContext>
                   <SideAdContext>
-                       
+
+                    <div className="overflow-x-hidden box-border ">
+                      
                               {children}   
+
+                    </div>
+                       
                       
                   </SideAdContext>
             </AppContext>

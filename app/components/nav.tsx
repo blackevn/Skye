@@ -10,7 +10,7 @@ import Avatar from "./avatar";
 import { useRouter } from "next/navigation";
 import PostForm from "./Forms/postForm";
 import { useLinks } from "../hooks";
-
+import { motion } from "framer-motion";
 
 
 
@@ -38,6 +38,7 @@ const Sidebar = () => {
                                                 name={link.name}
                                                 icon={link.icon}
                                                 notif={link.notification}
+                                                href={link.link}
                                                 />)
 
                                                
@@ -52,7 +53,14 @@ const Sidebar = () => {
     
    return <>
 
-            <div className={` ${toggle ? "sm:w-[400px] fixed" : "sm:w-[90px] flex"} p-4 justify-between box-border bg-base-100 bottom-0 top-16`}>
+            {toggle && <div className="w-[93px] h-full">
+                
+            </div>}
+
+            <motion.div
+            layout 
+            transition={{ type: "spring", stiffness: 100 }} 
+            className={` ${toggle ? "sm:w-[400px] fixed" : "sm:w-[90px] flex"} p-4 justify-between box-border bg-base-100 bottom-0 top-16 z-[9999]`}>
 
                 <div className="flex flex-col justify-between h-full">
 
@@ -96,7 +104,7 @@ const Sidebar = () => {
                 </div>
                 
 
-            </div>
+            </motion.div>
   
          </>
 };

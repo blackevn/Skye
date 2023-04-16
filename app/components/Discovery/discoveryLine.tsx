@@ -9,7 +9,7 @@ const DiscoveryLine = () => {
 
   return <>
 
-        <div className="flex lg:hidden gap-4 px-4">
+        <div className=" flex gap-2 overflow-scroll box-border">
   
             { discovery.map( discover =>  <Link key={discover.id} href={`/?topic=${discover.name}`}>
 

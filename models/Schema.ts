@@ -1,7 +1,7 @@
 import { Schema, model, models, Document } from "mongoose";
 
 interface User extends Document {
-  username: string
+  username: string;
   email: string;
   password: string;
   createdAt: Date;
@@ -21,6 +21,6 @@ const userSchema: Schema = new Schema(
   }
 );
 
-const Users = models.user || model<User>('User', userSchema);
+const Users = models.User || model<User>("User", userSchema);
 
-export default Users
+export default Users;

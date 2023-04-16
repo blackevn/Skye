@@ -27,8 +27,8 @@ const initialAuthData: FormAuthData = {
 const useForm = () => {
 
   
-  const {  showPassword, handlePassword } = useAppContext()
-  const [formData, setFormData] = useState<FormAuthData>(initialAuthData);
+  const { showPassword, handlePassword } = useAppContext()
+  const [ formData, setFormData ] = useState<FormAuthData>(initialAuthData);
   const [ isSignup, switchAuth ] = useToggle(true)
   const { data: session } = useSession()
 
@@ -46,7 +46,7 @@ const useForm = () => {
 
   }
 
-  const handleSubmit = async ( values: any) => {
+  const handleSubmit = async () => {
   
 
     if ( isSignup ) {
@@ -65,9 +65,9 @@ const useForm = () => {
 
      await signIn("credentials", {
 
-      redirect: true,
-      email: values.email,
-      password: values.password,
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
       callbackUrl: "/home"
 
      })

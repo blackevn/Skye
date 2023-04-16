@@ -6,15 +6,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleRight, faAt, faEye, faEyeSlash, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { NextPage } from "next";
-import { ReactNode } from "react";
 
-const AuthPage = ({response}: any) => {
+
+const AuthPage: NextPage = () => {
  
-const { formData, handleFormChange, handleSubmit, isSignup, switchAuth, showPassword, handlePassword, session, signIn, defaultPrevent }  = useForm() 
+const { formData, 
+        handleFormChange, 
+        handleSubmit, 
+        isSignup, 
+        switchAuth, 
+        showPassword, 
+        handlePassword, 
+        session, 
+        signIn, 
+        defaultPrevent }  = useForm() 
 
 const inputIcon = showPassword ? faEye : faEyeSlash
 
-console.log(response )
 
  
   return <>
@@ -25,7 +33,11 @@ console.log(response )
 
               {/* Image section */}
 
-              <div className="h-full md:w-[50%] hidden md:block">
+              <div className="h-full md:w-[50%] hidden md:block p-8 ">
+
+                <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
+                  <div className="h-full w-full authLeft bg-no-repeat bg-center bg-cover"></div>
+                  </div>
 
               </div>
 
@@ -37,7 +49,7 @@ console.log(response )
 
                   <div className="flex items-center gap-8">
 
-                <p className="font-black text-2xl">blackevn</p>
+                <p className="font-black text-2xl">Skye</p>
 
                 <Link className="m-0 p-0" href="/home">
                 <p className="font-semibold text-2xl">home</p> 
@@ -52,13 +64,13 @@ console.log(response )
 
                 <div className="w-[90%] h-[80%] grid place-items-center ">
 
-                  <Form onSubmit={defaultPrevent} label={ isSignup ? "Sign up" : "Sign in"} modifier="space-y-4 md:w-[300px] lg:w-[400px] xl:w-[500px]">
+                  <Form onSubmit={defaultPrevent} label={ isSignup ? "Sign up" : "Sign in"} modifier="space-y-2 md:w-[300px] lg:w-[400px] xl:w-[500px]">
 
                   {isSignup ? 
 
                   // Sign up
                   
-                  <div className="space-y-6">
+                  <div className="space-y-2 lg:space-y-4">
             
                      <GroupedInput   
                      type="text"
@@ -108,7 +120,7 @@ console.log(response )
 
                   // Sign in
                   
-                  <div className="space-y-6 ">
+                  <div className="space-y-2 lg:space-y-4">
 
                     <GroupedInput   
                     type="email"
@@ -135,7 +147,7 @@ console.log(response )
                   }
 
                       <Button 
-                      clickEvent={() => handleSubmit(formData)} 
+                      clickEvent={handleSubmit} 
                       text="Sign up" 
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}
