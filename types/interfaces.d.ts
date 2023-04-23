@@ -68,7 +68,7 @@ export type ButtonProps = {
 export interface ContextData {
 
   width: number
-  user: IUser
+  user?: IUser
   height: number
   toggle?: ToggleHandler
   showPassword?: ToggleHandler
@@ -115,11 +115,11 @@ export interface ContextData {
   
 
   export interface IUser {
-    _id: string;
-    name: string;
-    userName: string;
-    image: string;
-    bio: string;
+    _id?: string;
+    name?: string | null;
+    userName?: string;
+    image?: string;
+    bio?: string;
     email: string;
     verifiedEmail: string
     image: string

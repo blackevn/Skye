@@ -1,4 +1,4 @@
-import { IProps, Video } from "@/types/interfaces";
+import { IProps } from "@/types/interfaces";
 import { useWidth } from "../hooks";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

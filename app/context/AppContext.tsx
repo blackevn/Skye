@@ -7,7 +7,6 @@ import { ContextData, IProps } from "@/types/interfaces";
 const Context = createContext<ContextData>({
 
   width: 0,
-  user: true,
   height: 0,
   toggle: false,
    
