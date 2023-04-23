@@ -1,69 +1,68 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth";
-import type { NextAuthOptions } from "next-auth";
-import GoogleProvider from 'next-auth/providers/google'
-import { RequestInternal } from "next-auth";
-import { connectDatabase } from "@/database/connection";
-import Users from "@/models/Schema";
-import { compare } from "bcryptjs";
+import prisma from "../../../lib/prismadb";
 
-export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
-  providers: [
-    // ...add more providers here
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
-    }),
-    CredentialsProvider({
-      name: 'credentials',
-      credentials: {
-        email: { label: 'email', type: 'text' },
-        password: { label: 'password', type: 'password' }
-      },
-      async authorize(credentials: any, req: Pick<RequestInternal, "body" | "query" | "headers"
-       | "method">) {
+export default NextAuth({
+    adapter: PrismaAdapter(prisma),
+    providers: [
+        CredentialsProvider({
+            name: 'credentials',
+            credentials: {
+                email: {label: 'email', type: 'text'},
+                password: {label: 'password', type: 'password'}
+            },
 
-         await connectDatabase().catch( error => { error: "Connection failed"})
+            async authorize(credentials) {
 
-         if (!credentials?.email || !credentials?.password) {
+                if (!credentials?.email || !credentials?.password) {
+                    
+                    throw new Error('Invalid credentials')
+                   
+                }
 
-            const user = await Users.findOne({ email: credentials?.email });
+                const user = await prisma.user.findUnique({
+                    where: {
+                        email: credentials?.email
+                    }
+                })
 
-            if (!user) {
-              throw new Error('This email does not match a registered account');
+                if (!user || !user?.hashedPassword) {
+                    throw new Error('Invalid credentials')
+                }
+
+                const isValid = await bcrypt.compare(
+                    credentials?.password, 
+                    user?.hashedPassword)
+
+                if (!isValid) {
+
+                    throw new Error('Invalid credentials')
+                }
+
+                return user
+                           
             }
-    
-            const isCorrectPassword = await compare( credentials?.password, user.password )
-    
-            if (!isCorrectPassword || user.email !== credentials?.email) {
-              throw new Error('Password incorrect');
-            }
-            
-            return user;
+        })
 
-        }
-             
-     
-      }
-    })
-  ],
+        
+    ],
 
-  callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
-    },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.user = token;
-
-      return session;
-    },
-  },
-
+ 
   pages: {
-    signIn: "/home",
+    signIn: '/auth'
   },
-};
 
-export default NextAuth(authOptions);
+
+    debug: process.env.NODE_ENV === 'development',
+    session: {
+        strategy: 'jwt'
+    },
+    jwt: {
+        secret: process.env.NEXTAUTH_JWT_SECRET
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+
+    
+})

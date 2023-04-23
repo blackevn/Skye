@@ -60,7 +60,7 @@ const Sidebar = () => {
             <motion.div
             layout 
             transition={{ type: "spring", stiffness: 100 }} 
-            className={` ${toggle ? "sm:w-[400px] fixed" : "sm:w-[90px] flex"} p-4 justify-between box-border bg-base-100 bottom-0 top-16 z-[9999]`}>
+            className={` ${toggle ? "sm:w-[400px] fixed" : "sm:w-[90px] flex"} p-4 justify-between box-border bg-base-100 bottom-0 top-16 z-[99]`}>
 
                 <div className="flex flex-col justify-between h-full">
 

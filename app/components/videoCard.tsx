@@ -2,20 +2,17 @@ import { IProps, Video } from "@/types/interfaces";
 import { useWidth } from "../hooks";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPauseCircle, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import useZustand from "../hooks/useZustand";
+import Button from "./button";
 
-interface VProps {
 
-  video: Video;
-  
-}
-
-const VideoCard = ({video}: VProps) => {
+const VideoCard = () => {
 
   const [ width ] = useWidth()
-
-  console.log(video);
-  
+  const toggle = useZustand((state) => state.toggle)
+  const handleToggle =  useZustand((state) => state.toggleHandle)
+ 
   return <>
 
             <div className={`rounded-xl space-y-2 ${width >= 768 ? "bg-gray-400" : ""} xxs:h-[20em] xs:h-[25em] sm:h-[35em] md:h-[40em] xl:h-[50em] w-full snap-center p-4`}>
@@ -30,7 +27,7 @@ const VideoCard = ({video}: VProps) => {
 
              <div className="w-full bg-gray-600 h-[70%] grid place-items-center rounded-lg">
 
-              <FontAwesomeIcon icon={faPlayCircle} className="text-white text-5xl" />
+              <Button clickEvent={() => handleToggle()} text="" icon={ toggle ? faPlayCircle : faPauseCircle} modifier="text-white text-5xl" />
 
              </div>
 

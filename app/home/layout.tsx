@@ -8,8 +8,10 @@ import { useWidth } from '../hooks';
 import { AdBox } from "../components";
 import { useAppContext } from "../context/AppContext";
 import Link from "next/link";
-import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowAltCircleRight, faCheckCircle, faClose } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react"
+import { toast } from "react-hot-toast";
+import Toast from "../components/toast/toast";
 
 
 export default function HomeLayout({
@@ -26,7 +28,7 @@ export default function HomeLayout({
   const { sideToggle } = useSideContext()
   const { toggle, user } = useAppContext()
   const { data: session } = useSession()
-      
+        
   return <>
 
     <div className="box-border">
@@ -75,15 +77,28 @@ export default function HomeLayout({
 
               <div className="w-full">
 
-              <Link  href="/auth"> 
+              <Link  href="/"> 
 
               <Button 
               icon={faArrowAltCircleRight}
               text="Sign in" 
               modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn text-white w-full"
+            
               />
 
-              </Link>                  
+              </Link>   
+
+               <Button 
+              icon={faArrowAltCircleRight}
+              text="Sign in" 
+              modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn text-white w-full"
+              clickEvent={(t: any) => toast.custom(<Toast text="Task completed successfully"
+                                                     modifier={`bg-green-500 text-white`}
+                                                     icon={faCheckCircle}
+                                                     mode={true}
+                                                     clickEvent={() => toast.dismiss(t.id)}
+                                                     />)}
+              />               
               </div>
 
               </div>

@@ -1,33 +1,29 @@
 "use client"
 
-import { useContext, createContext } from "react";
-import { useToggle, useWidth, useHeight } from "../hooks";
+import { useContext, createContext, useEffect } from "react";
+import { useToggle, useWidth, useHeight, useCurrentUser } from "../hooks";
 import { ContextData, IProps } from "@/types/interfaces";
 
 const Context = createContext<ContextData>({
 
-  toggle: false,
-  handleToggle: () => {},
-  width: () => {},
+  width: 0,
   user: true,
-  adSectionToggle: true,
-  handleAdSectionToggle: () => {},
   height: 0,
-  showPassword: false,
-  handlePassword: () => {}
-  
+  toggle: false,
+   
  })
 
-export const AppContext = (props: IProps) => {
+export const AppContext = ({children}: IProps) => {
 
+  const { data: session } = useCurrentUser()
   const [ toggle, handleToggle ] = useToggle(false)
   const [ adSectionToggle, handleAdSectionToggle ] = useToggle()
   const [ showPassword, handlePassword ] = useToggle(false)
   const [ width ] = useWidth()
   const [ height ] = useHeight()
-  const { children } = props
-  const user: boolean = false
+  const user = session
 
+ 
   return <Context.Provider  value={{ user, 
                                      width, 
                                      toggle, 
@@ -35,7 +31,8 @@ export const AppContext = (props: IProps) => {
                                      adSectionToggle, 
                                      handleAdSectionToggle, 
                                      height,
-                                     showPassword, handlePassword }}>
+                                     showPassword, handlePassword,
+                                     }}>
 
             {children}
 

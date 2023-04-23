@@ -1,13 +1,12 @@
-import Link from "next/link";
+
+import AuthPage from "./auth/AuthPage";
 
 const page = async () => {
 
 
   return <div className="w-full h-screen grid place-items-center">
 
-               <Link href='/auth'>
-                Auth
-               </Link>
+               <AuthPage/>
                
           </div>;
 };

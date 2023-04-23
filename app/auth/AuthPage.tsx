@@ -1,12 +1,11 @@
 "use client"
 
-import useForm, { FormAuthData } from "../hooks/useForm";
+import { useForm } from "../hooks";
 import { GroupedInput, Form, Button } from "../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleRight, faAt, faEye, faEyeSlash, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { NextPage } from "next";
-
 
 const AuthPage: NextPage = () => {
  
@@ -17,13 +16,13 @@ const { formData,
         switchAuth, 
         showPassword, 
         handlePassword, 
-        session, 
-        signIn, 
+        signIn, user,
         defaultPrevent }  = useForm() 
-
-const inputIcon = showPassword ? faEye : faEyeSlash
-
-
+        
+        const inputIcon = showPassword ? faEye : faEyeSlash
+ 
+        console.log(user?.name);
+        
  
   return <>
 
@@ -33,7 +32,7 @@ const inputIcon = showPassword ? faEye : faEyeSlash
 
               {/* Image section */}
 
-              <div className="h-full md:w-[50%] hidden md:block p-8 ">
+              <div className="h-full md:w-[50%] hidden md:block p-4">
 
                 <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
                   <div className="h-full w-full authLeft bg-no-repeat bg-center bg-cover"></div>
@@ -57,7 +56,7 @@ const inputIcon = showPassword ? faEye : faEyeSlash
 
                 </div>
 
-                <Button icon={faSignIn} text="Login" modifier=" btn" clickEvent={switchAuth}/>
+                <Button icon={faSignIn} text={isSignup ? "Signin" : "Signup"} modifier=" btn" clickEvent={switchAuth}/>
 
                 </div>
 
@@ -71,19 +70,7 @@ const inputIcon = showPassword ? faEye : faEyeSlash
                   // Sign up
                   
                   <div className="space-y-2 lg:space-y-4">
-            
-                     <GroupedInput   
-                     type="text"
-                     placeholder="Username"
-                     name="username"
-                     value={formData.username}
-                     onChange={handleFormChange}
-                     >
-
-                    <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
-
-                    </GroupedInput>
-                    
+                                
                     <GroupedInput 
                     type="email"
                     placeholder="Email"
@@ -92,6 +79,27 @@ const inputIcon = showPassword ? faEye : faEyeSlash
                     onChange={handleFormChange}
                     >
                     <span className="bg-white"><FontAwesomeIcon icon={faAt}/></span>
+                    </GroupedInput>
+
+                    
+                    <GroupedInput   
+                     type="text"
+                     placeholder="Name"
+                     name="name"
+                     value={formData.name}
+                     onChange={handleFormChange}
+                     >
+                    <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
+                    </GroupedInput>
+                    
+                    <GroupedInput   
+                     type="text"
+                     placeholder="Username"
+                     name="userName"
+                     value={formData.userName}
+                     onChange={handleFormChange}
+                     >
+                    <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
                     </GroupedInput>
 
                     <GroupedInput   
@@ -103,16 +111,6 @@ const inputIcon = showPassword ? faEye : faEyeSlash
                     >
                     <span className="bg-white"><FontAwesomeIcon onClick={handlePassword} icon={inputIcon}/></span>
                     </GroupedInput>
-
-                    <GroupedInput   
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Repeat password"
-                    name="repeatPassword"
-                    value={formData.repeatPassword}
-                    onChange={handleFormChange}
-                    >
-                    <span className="bg-white"><FontAwesomeIcon onClick={handlePassword} icon={inputIcon}/></span>
-                    </GroupedInput> 
 
                   </div> 
                   
@@ -148,7 +146,7 @@ const inputIcon = showPassword ? faEye : faEyeSlash
 
                       <Button 
                       clickEvent={handleSubmit} 
-                      text="Sign up" 
+                      text={isSignup ? "Signup" : "Signin"}
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}
                       /> 

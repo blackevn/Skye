@@ -18,6 +18,8 @@ import People from "./People/people";
 import AdBox from "./adBox";
 import VideoCard from "./videoCard";
 import DiscoveryLine from "./Discovery/discoveryLine";
+import Toast from "./toast/toast";
+import ToastButton from "./toast/toastButton";
 
 
 export {
@@ -26,6 +28,8 @@ export {
     Sidebar, Select, Toggle, NavLink, 
     TextArea, BottomNav, GroupedInput, 
     Form, Avatar, UserDropdown, PostForm,
-    DiscoveryPanel, People, AdBox, VideoCard, DiscoveryLine   
+    DiscoveryPanel, People, AdBox, VideoCard, 
+    DiscoveryLine, Toast, ToastButton
+       
 
 }

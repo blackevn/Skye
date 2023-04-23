@@ -2,10 +2,11 @@
 import { faIcons } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import { useAppContext } from "../context/AppContext"
+import { ButtonProps } from "@/types/interfaces";
 
 
 
-const Button = (props: any) => {
+const Button: React.FC<ButtonProps> = (props) => {
 
   
   const { height } = useAppContext()
@@ -24,9 +25,6 @@ const Button = (props: any) => {
            paddingX = "px-6",
            paddingY = "py-1",
            children,
-           gradient,
-           shadow,
-           margin,
            modifier,
            tip,
            isActive,
@@ -56,11 +54,9 @@ const Button = (props: any) => {
         ${borderColor} 
         ${paddingX}
         ${paddingY}
-        ${margin}
         ${textColor}
         ${bgColor}
-        ${gradient}
-        ${shadow}
+      
  
     `}
 

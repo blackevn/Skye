@@ -7,8 +7,7 @@ import { useSideContext } from "../context/SideAdContext";
 import Button from "./button";
 import { useWidth } from "../hooks";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react"
-import Avatar from "./avatar";
+import { useSession, signOut } from "next-auth/react"
 import UserDropdown from "./userDropdown";
 
 const Nav = () => {
@@ -18,7 +17,6 @@ const Nav = () => {
     const { handleSideToggle, sideToggle } = useSideContext()
     const { data: session } = useSession()
   
-
   return <>
 
   <div className="fixed top-0 z-[999] w-screen box-border bg-base-100">
@@ -50,7 +48,7 @@ const Nav = () => {
               <div className={`${ width <= 1024 ? "block" : "hidden" } `}>
 
               { !session?.user ? 
-                <Link href="/auth">
+                <Link href="/">
                   <Button 
                     icon={faArrowAltCircleRight}
                     text="Sign in" 
@@ -64,7 +62,7 @@ const Nav = () => {
                 <UserDropdown>
                   <h1>{session?.user?.name}</h1>
                   <h1>{session?.user?.email}</h1>
-                  <Button clickEvent={signOut} modifier="btn" text="Sign out" icon={faSignOut}/>
+                  <Button clickEvent={() => signOut({callbackUrl: '/', redirect: true})} modifier="btn" text="Sign out" icon={faSignOut}/>
                 </UserDropdown>
                 </div>
 

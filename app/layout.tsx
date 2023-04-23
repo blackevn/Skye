@@ -1,5 +1,6 @@
 "use client"
 
+import { Toaster } from 'react-hot-toast';
 import '../styles/globals.css'
 
 import { AppContext } from './context/AppContext'
@@ -13,7 +14,8 @@ export default function RootLayout({   children  } : {
     return <html lang="en">
 
       <body>
-       <SessionProvider>
+        <Toaster/>
+         <SessionProvider>
             <AppContext>
                   <SideAdContext>
 
