@@ -3,6 +3,7 @@
 import { useContext, createContext, useEffect } from "react";
 import { useToggle, useWidth, useHeight, useCurrentUser } from "../hooks";
 import { ContextData, IProps } from "@/types/interfaces";
+import { useRouter } from "next/router";
 
 const Context = createContext<ContextData>({
 
@@ -18,6 +19,7 @@ export const AppContext = ({children}: IProps) => {
   const [ toggle, handleToggle ] = useToggle(false)
   const [ adSectionToggle, handleAdSectionToggle ] = useToggle()
   const [ showPassword, handlePassword ] = useToggle(false)
+  const [ editProfileToggle, handleEditProfileToggle ] = useToggle(false)
   const [ width ] = useWidth()
   const [ height ] = useHeight()
   const user = session
@@ -31,6 +33,8 @@ export const AppContext = ({children}: IProps) => {
                                      handleAdSectionToggle, 
                                      height,
                                      showPassword, handlePassword,
+                                     editProfileToggle, handleEditProfileToggle
+
                                      }}>
 
             {children}

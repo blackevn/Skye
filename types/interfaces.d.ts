@@ -1,9 +1,13 @@
 import { Toggle } from '@/app/components';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
-export interface MyComponentProps extends React.HTMLAttributes<HTMLDivElement> {
-    image: any
-    src: any
+export interface Avatar{
+    image?: any
+    src?: any
+    children?: IProps
+    modifier?: string
+    userId?: string
+    width?: string
   }
 
 type FunctionHandler = () => void;
@@ -15,7 +19,7 @@ type ClickEvent =  MouseEventHandler<HTMLButtonElement> | string | (() => void)
 export interface Toggle {
 
   toggle: boolean
-  toggleHandle: () => void
+  toggleHandle: FunctionHandler
 
 }
 
@@ -38,6 +42,9 @@ export type FormAuthData = {
   email: string,
   password: string,
   rememberMe: boolean
+  bio: string
+  profileImage: string
+  coverImage: string
   
 }
 
@@ -76,18 +83,21 @@ export interface ContextData {
   handleAdSectionToggle?: ClickEvent
   handlePassword?: ClickEvent
   adSectionToggle?: ClickEvent
-  
+  userId?: IUser.id
+  editProfileToggle?: ToggleHandler
+  handleEditProfileToggle?: ClickEvent
 
 }
 
   export interface NavigationLinks {
 
-    id: number
+    id?: number
     name: string
-    link: string
+    href?: string
+    link?: string
     icon: IconDefinition
     notification?: number
-    new?: boolean
+    isAuthenticated?: boolean
   }
 
   export interface DiscoveryLinks {
@@ -100,22 +110,23 @@ export interface ContextData {
 
   export interface IProps {
 
-    children: React.ReactNode | JSX.Element | JSX.Element[]
+    children: React.ReactNode | React.ReactNode[] | JSX.Element | JSX.Element[]
       
   }
  
   export interface Post {
-  id: string
-  body: string
-  createAt: string
-  userId: string
-  likedIds: string[]
+  id?: string
+  body?: string
+  image?: string
+  video?: string
+  createAt?: string
+  userId?: string
+  likedIds?: string[]
    
   }
   
-
   export interface IUser {
-    _id?: string;
+    id?: string;
     name?: string | null;
     userName?: string;
     image?: string;
@@ -130,4 +141,12 @@ export interface ContextData {
     updatedAt: string;
     followingId: string;
     hasNotification: boolean
+    bg?: string
+  }
+
+  type UserProfile = {
+
+    currentProfileUser?: IUser
+    currentUser?: IUser
+  
   }

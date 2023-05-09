@@ -20,7 +20,13 @@ import VideoCard from "./videoCard";
 import DiscoveryLine from "./Discovery/discoveryLine";
 import Toast from "./toast/toast";
 import ToastButton from "./toast/toastButton";
-
+import Loading from "./loading";
+import ProfileHeader from "./Profile/profileHeader";
+import UserDetails from "./Profile/userDetails";
+import PostCard from "./postCard";
+import CurrentUserDetails from "./Profile/currentUserDetails";
+import EditForm from "./Forms/editForm";
+import ImageUpload from "./Forms/imageUpload";
 
 export {
 
@@ -29,7 +35,9 @@ export {
     TextArea, BottomNav, GroupedInput, 
     Form, Avatar, UserDropdown, PostForm,
     DiscoveryPanel, People, AdBox, VideoCard, 
-    DiscoveryLine, Toast, ToastButton
+    DiscoveryLine, Toast, ToastButton, Loading,
+    ProfileHeader, UserDetails, PostCard,
+    CurrentUserDetails, EditForm, ImageUpload
        
 
 }

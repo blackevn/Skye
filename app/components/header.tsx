@@ -19,7 +19,7 @@ const Nav = () => {
   
   return <>
 
-  <div className="fixed top-0 z-[999] w-screen box-border bg-base-100">
+  <div className="fixed top-0 z-[995] w-screen box-border bg-base-100">
 
             { width <= 700 && <div className={` ${toggle ? "block" : "hidden"} p-8`}>
 
@@ -27,7 +27,7 @@ const Nav = () => {
 
             </div> }
 
-            <div className="px-4 sm:px-9 py-4 flex justify-between items-center">
+            <div className="pr-4 pl-4 sm:px-9 py-4 flex justify-between items-center">
 
                 <div className="flex gap-8">
 
@@ -59,9 +59,11 @@ const Nav = () => {
                 :
 
                 <div className={`${width >= 700 && "hidden"}`}>
-                <UserDropdown>
-                  <h1>{session?.user?.name}</h1>
-                  <h1>{session?.user?.email}</h1>
+                <UserDropdown currentUser={user}>
+                  <div className=" text-white">
+                  <h1 className="font-bold text-xl text-white">{user?.name}</h1>
+                  <h1 className="font-bold text-lg">{user?.email}</h1>
+                  </div>
                   <Button clickEvent={() => signOut({callbackUrl: '/', redirect: true})} modifier="btn" text="Sign out" icon={faSignOut}/>
                 </UserDropdown>
                 </div>

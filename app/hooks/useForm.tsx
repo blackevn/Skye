@@ -5,9 +5,11 @@ import { signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { Toast } from "../components"
-import { faBarsProgress, faThumbsUp, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faBarsProgress, faCheckCircle, faThumbsUp, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FormAuthData } from "@/types/interfaces";
+import axios from "axios";
 import useCurrentUser from "./useCurrentUser";
+import useUser from "./useUser";
 
 const initialAuthData: FormAuthData = {
 
@@ -15,19 +17,26 @@ const initialAuthData: FormAuthData = {
   name: "",
   email: "",
   password: "",
-  rememberMe: false
+  rememberMe: false,
+  bio: "",
+  profileImage: "",
+  coverImage: "",
+
 
 }
 
 const useForm = () => {
   
+  const { data: loggedInUser} = useCurrentUser()
+  const { mutate: mutatedCurrentUser } = useUser( loggedInUser?.id as string)
+  
   const { showPassword, handlePassword, user } = useAppContext()
   const [ formData, setFormData ] = useState<FormAuthData>(initialAuthData);
   const [ isSignup, switchAuth ] = useToggle(true)
-  
+    
   const router = useRouter()
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>, image: string) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
     setFormData((prevData) => ({
@@ -47,13 +56,12 @@ const useForm = () => {
     
         try {
 
-          fetch("/api/signup", {
+          axios.post("/api/signup", {
 
-            method: "POST",
-            headers: {
+             headers: {
               "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
+            }
+           
     
             }).catch( error => toast.custom(<Toast
                                             text={error.message}
@@ -82,7 +90,7 @@ const useForm = () => {
             text={error.message}
             modifier="bg-orange-500 text-white"
             icon={faTriangleExclamation}
-
+            
             />))
           
         }
@@ -98,12 +106,15 @@ const useForm = () => {
           callbackUrl: "/home"
          })
          
-                         
-          toast.custom(<Toast
-            text={`Welcome ${formData.name}`}
-            modifier="bg-blue-500 text-white"
-            icon={faThumbsUp}
-    />)
+           setTimeout(() => {
+
+             toast.custom(<Toast
+               text={`Welcome back`}
+               modifier="bg-blue-500 text-white"
+               icon={faThumbsUp}
+       />)
+
+           }, 5000)              
            
     
       } catch (error: any) {
@@ -120,6 +131,36 @@ const useForm = () => {
     
    },[ formData, isSignup, router ])
 
+   const handleEdit = useCallback( async () => {
+
+    try {
+      
+      await axios.patch("/api/edit", formData)
+
+      mutatedCurrentUser()
+
+      toast.custom((t) => (<Toast
+        text='Profile edited successfully'
+        modifier="bg-green-500 text-white"
+        icon={faCheckCircle}
+        />))
+
+    } catch (error) {
+
+      toast.custom((t) => (<Toast
+        text='Something went wrong'
+        modifier="bg-orange-500 text-white"
+        icon={faTriangleExclamation}
+        />))
+
+      
+    }
+
+   },[formData, mutatedCurrentUser])
+
+   const handleDelete = useCallback( async () => {},[])
+
+
   return {
 
     formData,
@@ -130,7 +171,8 @@ const useForm = () => {
     showPassword, 
     handlePassword, 
     signIn, user,
-    signOut, defaultPrevent
+    signOut, defaultPrevent, handleEdit
+    
 
   }
 }

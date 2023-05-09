@@ -10,7 +10,7 @@ const useLinks = () => {
          "link": "/home",
          "icon": faHome,
          "notification": 0,
-         "new": true
+         "isAuthenticated": false
         },
         {
          "id": 2,
@@ -18,7 +18,7 @@ const useLinks = () => {
          "link": "/home/posts",
          "icon": faCompass,
          "notification": 1,
-         "new": true
+         "isAuthenticated": true
         },
         {
          "id": 3,
@@ -26,7 +26,7 @@ const useLinks = () => {
          "link": "/home",
          "icon": faStar,
          "notification": 3,
-         "new": true
+         "isAuthenticated": true
         },
         {
          "id": 4,
@@ -34,7 +34,7 @@ const useLinks = () => {
          "link": "/home/about",
          "icon": faSearch,
          "notification": 5,
-         "new": true
+         "isAuthenticated": true
         },
         {
          "id": 5,
@@ -42,7 +42,7 @@ const useLinks = () => {
          "link": "/home/settings",
          "icon": faCircle,
          "notification": 1,
-         "new": true
+         "isAuthenticated": true
         },
        
      

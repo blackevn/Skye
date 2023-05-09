@@ -1,14 +1,20 @@
 import React from "react";
 import Avatar from "./avatar";
 import { useSession } from "next-auth/react";
+import { IProps, IUser } from "@/types/interfaces";
 
-const UserDropdown = ({image, children}: any) => {
+interface UserDropdownProps {
+  children: JSX.Element[]
+  currentUser?: IUser;
+}
+
+const UserDropdown: React.FC<UserDropdownProps> = ({currentUser, children}) => {
 
   const { data: session } = useSession()
 
   return <div className="dropdown dropdown-end">
-            <label tabIndex={0} className=""> <Avatar src={session?.user?.image} image={session?.user?.image}/></label>
-            <div tabIndex={0} className="dropdown-content card card-compact shadow bg-base-100 ">
+            <label tabIndex={0} className=""> <Avatar userId={currentUser?.id}/></label>
+            <div tabIndex={0} className="dropdown-content card card-compact shadow bg-opacity-25 bg-gray-400 backdrop-blur-2xl min-w-[300px] p-4">
                 <div className="card-body">
                   { children }
                 </div>

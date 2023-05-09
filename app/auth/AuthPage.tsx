@@ -152,7 +152,7 @@ const { formData,
                       /> 
 
                       <Button 
-                      clickEvent={() => signIn("google", {callbackUrl: "https://skye-git-auth-blackevn.vercel.app/api/auth/callback/google"})}
+                      clickEvent={() => signIn("google", {callbackUrl: "/home"})}
                       text="Google" 
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}

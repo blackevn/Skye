@@ -1,4 +1,3 @@
-import React from "react";
 
 const TextArea = (props: any) => {
  
@@ -22,8 +21,7 @@ const TextArea = (props: any) => {
    
     text-gray-400
     ${modifier}
-    bg-gray-200
-    dark:bg-base-300
+    textarea bg-white outline-none
 
     `}
 
@@ -41,9 +39,5 @@ const TextArea = (props: any) => {
     )
 };
 
-TextArea.defaultProps = {
-    cols: 4,
-    rows: 4
-}
 
 export default TextArea;

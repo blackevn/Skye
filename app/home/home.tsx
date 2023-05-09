@@ -1,6 +1,6 @@
 "use client"
 
-import { DiscoveryLine, VideoCard } from "../components";
+import { DiscoveryLine, VideoCard, PostCard, Loading, People } from "../components";
 import { useSession } from "next-auth/react";
 
 
@@ -10,10 +10,10 @@ const Home = () => {
 
   const dummyArray = [ 1, 2, 3, 4, 5, 6 ]
 
-  const videoFeed = dummyArray.map( video  => <VideoCard/>)
+  const videoFeed = dummyArray.map( video  => <PostCard/>)
 
  
-  return <div className="box-border relative max-w-[100%]">
+  return <div className="box-border relative max-w-[100%] mb-20">
              
           {/* <div className=" w-full box-border overflow-hidden p-2">
            {session?.user && <DiscoveryLine/>}
@@ -26,10 +26,14 @@ const Home = () => {
               videoFeed
             
             : 
-                  <button className="btn btn-square loading"></button>
+                <Loading/>
            
             }
        
+           </div>
+
+           <div className="block my-4 lg:hidden ">
+            <People/>
            </div>
      
         </div>;

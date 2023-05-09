@@ -2,10 +2,9 @@
 
 import "../../styles/globals.css"
 
-import { Nav, Sidebar, BottomNav, DiscoveryPanel, People, Footer, Button } from '../components'
+import { Nav, Sidebar, BottomNav, DiscoveryPanel, People, Footer, Button, AdBox } from '../components'
 import { useSideContext } from '../context/SideAdContext'
-import { useWidth } from '../hooks';
-import { AdBox } from "../components";
+import { useWidth, useCurrentUser } from '../hooks';
 import { useAppContext } from "../context/AppContext";
 import Link from "next/link";
 import { faArrowAltCircleRight, faCheckCircle, faClose } from "@fortawesome/free-solid-svg-icons";
@@ -28,6 +27,7 @@ export default function HomeLayout({
   const { sideToggle } = useSideContext()
   const { toggle, user } = useAppContext()
   const { data: session } = useSession()
+  const { data: currentUser } = useCurrentUser()
         
   return <>
 
@@ -63,7 +63,7 @@ export default function HomeLayout({
 
             <DiscoveryPanel/>
             <AdBox/>
-            <People/>
+            <People currentUser={currentUser}/>
 
           </div> 
           

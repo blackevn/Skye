@@ -1,64 +1,43 @@
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../button";
+import { useUsers, useCurrentUser } from "@/app/hooks";
+import { IUser, UserProfile } from "@/types/interfaces";
+import Loading from "../loading";
+import Avatar from "../avatar";
+import Link from "next/link";
 
-const People = () => {
 
-    const people = [
-                        { id: 1,
-                        type: "",
-                        userName: "Kevin",
-                        image: "",
-                        bg: "bg-black" 
-                        },
+const People: React.FC<UserProfile> = ({currentUser}) => {
 
-                        { id: 2,
-                        type: "",
-                        userName: "Louie",
-                        image: "",
-                        bg: "bg-purple-400"  },
+    const { data: users = [] } = useUsers();
 
-                        { id: 3,
-                        type: "",
-                        userName: "Abraham",
-                        image: "",
-                        bg: "bg-green-400"  },
-
-                        { id: 4,
-                        type: "",
-                        userName: "Sedina",
-                        image: "",
-                        bg: "bg-yellow-400"  },
-
-                        { id: 5,
-                        type: "",
-                        userName: "Box",
-                        image: "",
-                        bg: "bg-pink-400"  },
-                        
-                        { id: 6,
-                        type: "",
-                        userName: "Ketchup",
-                        image: "",
-                        bg: "bg-blue-400"  },
-                    
-                    ]
+      
 
   return <>
-            <div className="space-y-4">
+          { users.length ?  <div className="space-y-4">
                 <h1>People to follow</h1>
                 <div className="space-y-4">
-                        {people.map(person => <div key={person.id} className="flex items-center justify-between flex-wrap gap-2">
-                                                    <div className="flex gap-4 items-center">
-                                                    <div className={`h-[30px] w-[30px] rounded-full ${person.bg}`}>
+                        {users.map((user: IUser) =>
+
+                                                    <div>
+                                                    
+                                                        <div key={user.id} className="flex items-center justify-between flex-wrap gap-2">
+                                                        <div className="flex gap-4 items-center">
+                                                        <Avatar userId={user.id}/>
+                                                        <Link href={`/home/profile/${user.id}`}>
+                                                        <div>
+                                                            <h1 className="font-bold text-sm">{user.name}</h1>
+                                                            <h1 className="text-sm">@{user.userName}</h1>                                                 
+                                                        </div>
+                                                        </Link>
+                                                        </div>
+                                                        <Button text="" icon={faUserPlus} modifier="border border-gray-400"/>
+                                                        </div>
+
                                                     </div>
-                                                    <h1>{person.userName}</h1>                                                 
-                                                    </div>
-                                                    <Button text="" icon={faUserPlus} modifier="border border-gray-400"/>
-                                              </div>
-                        
-                        ).slice(0,4)}
+                        ).slice(4,8)}
                 </div>
-            </div>
+            </div> : <Loading/>}
          </>
 };
 
