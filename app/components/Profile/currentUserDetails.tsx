@@ -7,7 +7,7 @@ const CurrentUserDetails: React.FC<UserProfile> = ({ currentUser }) => {
 
   return <>
 
-        <div className="profileHeaderImage">
+        <div className={`profileHeaderImage`}>
             <img className="w-full absolute" src='/backgroundPlace.jpg' alt="" />
         </div>
 
@@ -15,7 +15,7 @@ const CurrentUserDetails: React.FC<UserProfile> = ({ currentUser }) => {
 
                <div className="profileInfoCard">
               
-                <Avatar width="w-16 lg:w-32"/>
+                <Avatar userId={currentUser?.id} width="w-16 lg:w-24 "/>
 
                 <div className="text-center font-bold">
                     <h1>{currentUser?.name}</h1>

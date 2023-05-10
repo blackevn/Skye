@@ -33,7 +33,7 @@ const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser}) =
          
           <ProfileHeader>
 
-          <div className='flex flex-col w-full space-y-4 p-4'>
+          <div className='flex flex-col w-full space-y-4 p-4 bg-opacity-25 bg-black'>
 
           {currentUserDisplay ? 
           

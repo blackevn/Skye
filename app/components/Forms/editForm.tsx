@@ -24,7 +24,7 @@ const EditForm: React.FC<EditPanel> = ({  formData, handleEdit, handleFormChange
 
   return <div className="text-gray-600 fixed top-0 right-0 bottom-0 w-full md:w-[70%] lg:w-[50%] h-full backdrop-blur-2xl z-[999] p-4 rounded-l-2xl space-y-4">
 
-          <Button modifier="text-2xl" clickEvent={handleEditProfileToggle} text="" icon={faXmarkCircle} />
+          <Button modifier="text-2xl p-0 m-0" clickEvent={handleEditProfileToggle} text="" icon={faXmarkCircle} />
 
           <h1 className="text-3xl font-bold">Edit Profile</h1>
 

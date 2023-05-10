@@ -70,7 +70,7 @@ const useForm = () => {
                                           />)) 
                  
              await signIn("credentials", {
-                redirect: true,
+                redirect: false,
                 email: formData.email,
                 password: formData.password,
                 callbackUrl: "/home"
@@ -100,7 +100,7 @@ const useForm = () => {
       try {
 
         await signIn("credentials", {
-          redirect: true,
+          redirect: false,
           email: formData.email,
           password: formData.password,
           callbackUrl: "/home"
