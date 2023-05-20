@@ -2,9 +2,14 @@
 
 import "../../styles/globals.css"
 
-import { Nav, Sidebar, BottomNav } from '../components'
-import { useSideContext } from '../context/SideAdContext'
-import { useWidth } from '../hooks';
+import { Nav, Sidebar, BottomNav, DiscoveryPanel, People, Footer, Button, AdBox, Modal, AddPost } from '../components'
+import { useWidth, useCurrentUser } from '../hooks';
+import Link from "next/link";
+import { faArrowAltCircleRight, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "next-auth/react"
+import { toast } from "react-hot-toast";
+import Toast from "../components/toast/toast";
+import { useAppContext } from "../context/AppContext";
 
 
 export default function HomeLayout({
@@ -18,13 +23,25 @@ export default function HomeLayout({
 }) {
 
   const [ width ] = useWidth()
-  const { sideToggle } = useSideContext()
-      
+  const { data: session } = useSession()
+  const { data: currentUser } = useCurrentUser()
+  const { addPostToggle } = useAppContext()
+        
   return <>
 
-    <div >
+<div className="box-border relative">
       
+  { addPostToggle && 
+  
+                        <Modal>
+                          <AddPost/>
+                        </Modal>
+        
+                
+        }
+
       <div>
+
 
     <Nav/>
        
@@ -34,24 +51,74 @@ export default function HomeLayout({
           
           <Sidebar/>
 
-          :
+           :
 
           <BottomNav/>
         
           }
 
-          <div className=' w-full lg:grid lg:grid-cols-12'>
+          <div className='w-full lg:grid lg:grid-cols-12'>
 
-            <div className={`${sideToggle ? "lg:col-span-9" : "lg:col-span-12" } overflow-auto bg-gray-400 w-full h-full p-10`}>
+            <div className={`lg:col-span-9 overflow-scroll p-4 w-full h-full hideScrollBar`}>
 
             { children }
 
             </div>
 
-        { sideToggle &&  <div className='hidden lg:block lg:col-span-3 bg-gray-700'>
+        <div className={`hidden lg:flex lg:col-span-3 px-4 space-y-8 justify-between flex-col h-full overflow-auto max-w-[365px]`}>
+          
+        { session?.user ?  <div className="space-y-8">
+
+            <DiscoveryPanel/>
+            <AdBox/>
+            <People currentUser={currentUser}/>
 
           </div> 
-}
+          
+          :  
+
+          <div>
+
+              <div className={` rounded-3xl relative shadow-xl w-full gap-2 grid p-4`} >
+
+              <p className="text-gray-500 lg:font-medium">Sign in to create posts, like, comment, and follow others.</p>
+
+      <div className="w-full space-y-2">
+
+              <Link  href="/"> 
+
+              <Button 
+              icon={faArrowAltCircleRight}
+              text="Sign in" 
+              modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn text-white w-full"
+            
+              />
+
+              </Link>   
+
+               <Button 
+              icon={faArrowAltCircleRight}
+              text="Test Toast" 
+              modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn text-white w-full"
+              clickEvent={(t: any) => toast.custom(<Toast text="Task completed successfully"
+                                                     modifier={`bg-green-500 text-white`}
+                                                    icon={faInfoCircle}
+                                                     mode={true}
+                                                     clickEvent={() => toast.dismiss(t.id)}
+                                                     />)}
+              />               
+              </div>
+
+              </div>
+          </div>
+          
+          }
+
+          <Footer/>
+
+          </div> 
+
+     
           </div>
        
         </div>

@@ -25,7 +25,7 @@ const Form = (props: any) => {
             <h2 className={`
                 text-4xl 
                 m-4 
-                font-bold
+                
                 text-white
                 dark:text-gray-600
                

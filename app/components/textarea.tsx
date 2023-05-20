@@ -1,16 +1,15 @@
-import React from "react";
 
 const TextArea = (props: any) => {
  
     const {
         
-            value,
+            value ,
             name,
             id,
             cols,
             rows,
             onChange,
-            placeholder,
+            placeholder = "Textarea",
             modifier
             
         } = props
@@ -19,11 +18,9 @@ const TextArea = (props: any) => {
   
     <>
     <textarea className={`
-   
-    text-gray-400
+      
     ${modifier}
-    bg-gray-200
-    dark:bg-base-300
+    textarea bg-transparent outline-0
 
     `}
 
@@ -41,9 +38,5 @@ const TextArea = (props: any) => {
     )
 };
 
-TextArea.defaultProps = {
-    cols: 4,
-    rows: 4
-}
 
 export default TextArea;

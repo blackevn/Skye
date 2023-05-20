@@ -2,29 +2,31 @@ import Link from "next/link";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppContext } from "../context/AppContext"; 
+import { NavigationLinks } from "@/types/interfaces";
+import React from "react";
 
-const NavLink = (props: any) => {
 
-  const { href, children, name } = props
+const NavLink: React.FC<NavigationLinks> = (props) => {
 
-  const { toggle } = useAppContext()
+  const { href = "/", name = "Link", icon = faHome, notification = 0, isAuthenticated} = props
 
+  const { toggle, user } = useAppContext()
 
   return <>
 
-            <Link className={`navLink  `} href={href}>
+            <Link className={`navLink`} href={href}>
 
               <div className="flex gap-4 items-center ">
 
-              <FontAwesomeIcon icon={faHome}/>
+              <FontAwesomeIcon icon={icon}/>
 
-              {toggle &&  <p className="hidden sm:block ">{name}</p>}
+              {toggle &&  <p className="hidden sm:block">{name}</p>}
 
               </div>
 
-            {toggle &&   <div className="hidden sm:block">
+              {toggle &&   <div className="hidden sm:block">
                
-                {children}
+                {user && notification > 0 && <span className="badge">{notification}</span> }
 
               </div>}
             
@@ -34,11 +36,5 @@ const NavLink = (props: any) => {
   
 };
 
-NavLink.defaultProps = {
-
-  href: "/",
-  name: "Link"
-
-}
 
 export default NavLink;

@@ -1,45 +1,31 @@
 "use client"
 
-import {useContext, createContext} from "react";
-import {useToggle, useWidth, useHeight} from "../hooks";
-
-interface ContextData  {
-
-  toggle: any
-  handleToggle: any
-  width: any
-  user: boolean 
-  adSectionToggle: any
-  handleAdSectionToggle: any
-  height: number
-  showPassword: any
-  handlePassword: any
-}
+import { useContext, createContext, useEffect, useMemo } from "react";
+import { useToggle, useWidth, useHeight, useCurrentUser, usePosts, usePost } from "../hooks";
+import { ContextData, IProps, Post } from "@/types/interfaces";
 
 
 const Context = createContext<ContextData>({
 
-  toggle: false,
-  handleToggle: () => {},
-  width: () => {},
-  user: true,
-  adSectionToggle: true,
-  handleAdSectionToggle: () => {},
+  width: 0,
   height: 0,
-  showPassword: false,
-  handlePassword: () => {}
   
+   
  })
 
-export const AppContext = (props: any) => {
+export const AppContext = ({children}: IProps) => {
 
+  const { data: user } = useCurrentUser()
+  const { data: posts} = usePosts()
+  const { data: post} = usePost(user?.id as string)
   const [ toggle, handleToggle ] = useToggle(false)
   const [ adSectionToggle, handleAdSectionToggle ] = useToggle()
   const [ showPassword, handlePassword ] = useToggle(false)
-  const [ width ] = useWidth()
+  const [ editProfileToggle, handleEditProfileToggle ] = useToggle(false)
+  const [ addPostToggle, handleAddPostToggle ] = useToggle(false)
+   const [ width ] = useWidth()
   const [ height ] = useHeight()
-  const { children } = props
-  const user: boolean = false
+
 
   return <Context.Provider  value={{ user, 
                                      width, 
@@ -47,8 +33,13 @@ export const AppContext = (props: any) => {
                                      handleToggle, 
                                      adSectionToggle, 
                                      handleAdSectionToggle, 
-                                     height,
-                                     showPassword, handlePassword }}>
+                                     height, posts, post,
+                                     showPassword, handlePassword,
+                                     editProfileToggle, handleEditProfileToggle,
+                                     addPostToggle, handleAddPostToggle,
+                            
+
+                                     }}>
 
             {children}
 

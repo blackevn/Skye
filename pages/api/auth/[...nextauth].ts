@@ -1,76 +1,58 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
-import NextAuth from "next-auth";
-import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from 'next-auth/providers/google'
+import NextAuth, { AuthOptions } from "next-auth";
+import prisma from "../../../lib/prismadb";
 
-console.log(process.env.GOOGLE_SECRET);
 
+export const authOptions: AuthOptions = {
 
-export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
-  providers: [
-    // ...add more providers here
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
-    }),
-    CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
-      name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        username: {
-          label: "Username",
-          type: "text",
-          placeholder: "jsmith",
+    adapter: PrismaAdapter(prisma),
+    
+    providers: [
+      CredentialsProvider({
+        name: 'credentials',
+        credentials: {
+          email: { label: 'email', type: 'text' },
+          password: { label: 'password', type: 'password' }
         },
-        password: {
-          label: "Password",
-          type: "password",
-        },
-      },
-      async authorize(credentials, req) {
-        const { username, password } = credentials as any;
-        const res = await fetch("http://localhost:3000/auth", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        });
-
-        const user = await res.json();
-
-        console.log({ user });
-
-        if (res.ok && user) {
+        async authorize(credentials) {
+          if (!credentials?.email || !credentials?.password) {
+            throw new Error('Invalid credentials');
+          }
+  
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email
+            }
+          });
+  
+          if (!user || !user?.hashedPassword) {
+            throw new Error('Invalid credentials');
+          }
+  
+          const isCorrectPassword = await bcrypt.compare(
+            credentials.password,
+            user.hashedPassword
+          );
+  
+          if (!isCorrectPassword) {
+            throw new Error('Invalid credentials');
+          }
+  
           return user;
-        } else return null;
-      },
-    }),
-  ],
-
-  callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
+        }
+      })
+    ],
+    debug: process.env.NODE_ENV === 'development',
+    session: {
+      strategy: 'jwt',
     },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.user = token;
-
-      return session;
+    jwt: {
+      secret: process.env.NEXTAUTH_JWT_SECRET,
     },
-  },
-
-  pages: {
-    signIn: "/home",
-  },
-};
-
-export default NextAuth(authOptions);
+    secret: process.env.NEXTAUTH_SECRET,
+  };
+  
+  export default NextAuth(authOptions);
