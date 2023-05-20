@@ -11,19 +11,25 @@ const People: React.FC<UserProfile> = ({currentUser}) => {
 
     const { data: users = [] } = useUsers();
 
-      
+      if (!users.length) return <div className="h-[250px]">
+                                          <Loading/>
+                                </div>
 
   return <>
-          { users.length ?  <div className="space-y-4">
+          <div className="space-y-4">
                 <h1>People to follow</h1>
                 <div className="space-y-4">
                         {users.map((user: IUser) =>
 
-                                                    <div>
+                                                    <div  key={user.id} >
                                                     
-                                                        <div key={user.id} className="flex items-center justify-between flex-wrap gap-2">
+                                                        <div className="flex items-center justify-between flex-wrap gap-2">
                                                         <div className="flex gap-4 items-center">
-                                                        <Avatar userId={user.id}/>
+                                                        <Avatar 
+                                                        userId={user.id} 
+                                                        src={`${user?.profileImage !== null || '' ? user?.profileImage
+                                                          : ('/vercel.svg')}`}
+                                                        />
                                                         <Link href={`/home/profile/${user.id}`}>
                                                         <div>
                                                             <h1 className="font-bold text-sm">{user.name}</h1>
@@ -37,7 +43,7 @@ const People: React.FC<UserProfile> = ({currentUser}) => {
                                                     </div>
                         ).slice(4,8)}
                 </div>
-            </div> : <Loading/>}
+            </div> 
          </>
 };
 

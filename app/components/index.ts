@@ -23,10 +23,16 @@ import ToastButton from "./toast/toastButton";
 import Loading from "./loading";
 import ProfileHeader from "./Profile/profileHeader";
 import UserDetails from "./Profile/userDetails";
-import PostCard from "./postCard";
+import PostCard from "./Post/postCard";
 import CurrentUserDetails from "./Profile/currentUserDetails";
 import EditForm from "./Forms/editForm";
 import ImageUpload from "./Forms/imageUpload";
+import Modal from "./Modal/modal";
+import AddPost from "./Forms/addPost";
+import PostFeed from "./Post/postFeed";
+
+
+
 
 export {
 
@@ -36,8 +42,8 @@ export {
     Form, Avatar, UserDropdown, PostForm,
     DiscoveryPanel, People, AdBox, VideoCard, 
     DiscoveryLine, Toast, ToastButton, Loading,
-    ProfileHeader, UserDetails, PostCard,
-    CurrentUserDetails, EditForm, ImageUpload
-       
-
+    ProfileHeader, UserDetails, PostCard, Modal,
+    CurrentUserDetails, EditForm, ImageUpload, 
+    AddPost, PostFeed
+   
 }

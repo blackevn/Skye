@@ -1,19 +1,20 @@
 'use client'
 
-import { Avatar, ProfileHeader, Button, UserDetails, CurrentUserDetails, EditForm } from '@/app/components';
+import { Avatar, ProfileHeader, Button, UserDetails, CurrentUserDetails, EditForm, PostFeed } from '@/app/components';
 import { NextPage } from 'next';
 import { IUser, UserProfile } from '@/types/interfaces';
 import { faCircle, faEdit, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from '@/app/hooks';
 import { useAppContext } from '@/app/context/AppContext';
+import { useAnimationControls } from 'framer-motion';
+import { useEffect } from 'react';
 
 
 const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser}) => {
 
-  const { handleEdit, formData, handleFormChange } = useForm()
+  const { editProfileToggle, handleEditProfileToggle, post } = useAppContext()
 
-  const { editProfileToggle, handleEditProfileToggle } = useAppContext()
+  const controller = useAnimationControls()
   
   const currentUserDisplay =  currentProfileUser?.id === currentUser?.id
 
@@ -25,15 +26,22 @@ const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser}) =
     year: 'numeric'
   }) : '';
   
-  console.log(currentUserDisplay);
+  console.log(post);
+
+  useEffect(() => {
+    if (editProfileToggle) {
+      controller.start('show')
+    }
+  }, [editProfileToggle]);
+  
 
   return <>
 
-  { editProfileToggle && <EditForm formData={formData} handleEdit={handleEdit} handleFormChange={handleFormChange}/>}
+     <EditForm controller={controller}/>
          
-          <ProfileHeader>
+          <ProfileHeader currentProfileUser={currentProfileUser} >
 
-          <div className='flex flex-col w-full space-y-4 p-4 bg-opacity-25 bg-black'>
+          <div className={`flex flex-col w-full space-y-4 p-4 bg-opacity-40 lg:bg-opacity-0 ${!currentUserDisplay ? "bg-black" : "bg-none"}`}>
 
           {currentUserDisplay ? 
           
@@ -57,11 +65,16 @@ const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser}) =
     
             { currentUserDisplay ?
            
-              <Button modifier='bg-white w-full' icon={faEdit} text='Edit' clickEvent={handleEditProfileToggle}/>
+              <Button 
+              modifier='bg-white w-full text-black' 
+              icon={faEdit} 
+              text='Edit' 
+              clickEvent={handleEditProfileToggle}
+              />
               
               :
               
-              <Button modifier='bg-white w-full' icon={faUserPlus} text='Follow'/>
+              <Button modifier='bg-white w-full text-black' icon={faUserPlus} text='Follow'/>
            
             }
 
@@ -73,7 +86,7 @@ const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser}) =
 
           </ProfileHeader>
 
-          
+                  
             
         </>
 };

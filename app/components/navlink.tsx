@@ -12,7 +12,6 @@ const NavLink: React.FC<NavigationLinks> = (props) => {
 
   const { toggle, user } = useAppContext()
 
-
   return <>
 
             <Link className={`navLink`} href={href}>
@@ -21,11 +20,11 @@ const NavLink: React.FC<NavigationLinks> = (props) => {
 
               <FontAwesomeIcon icon={icon}/>
 
-              {toggle &&  <p className="hidden sm:block ">{name}</p>}
+              {toggle &&  <p className="hidden sm:block">{name}</p>}
 
               </div>
 
-            {toggle &&   <div className="hidden sm:block">
+              {toggle &&   <div className="hidden sm:block">
                
                 {user && notification > 0 && <span className="badge">{notification}</span> }
 

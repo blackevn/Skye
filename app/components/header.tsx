@@ -9,6 +9,7 @@ import { useWidth } from "../hooks";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react"
 import UserDropdown from "./userDropdown";
+import { motion } from "framer-motion";
 
 const Nav = () => {
 
@@ -19,13 +20,22 @@ const Nav = () => {
   
   return <>
 
-  <div className="fixed top-0 z-[995] w-screen box-border bg-base-100">
-
-            { width <= 700 && <div className={` ${toggle ? "block" : "hidden"} p-8`}>
+  <motion.div className="fixed top-0 z-[995] w-screen box-border bg-base-100"
+          transition={{
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 10,
+              
+              }}
+  >
+              
+            { width <= 700 && <motion.div 
+                                
+                                className={` ${toggle ? "block" : "hidden"} p-8`}>
 
             <p className="text-gray-500 font-semibold">Sign in to create posts, like, comment on other posts and follow others.</p>
 
-            </div> }
+            </motion.div> }
 
             <div className="pr-4 pl-4 sm:px-9 py-4 flex justify-between items-center">
 
@@ -60,10 +70,12 @@ const Nav = () => {
 
                 <div className={`${width >= 700 && "hidden"}`}>
                 <UserDropdown currentUser={user}>
-                  <div className=" text-white">
+                  <Link href={`/home/profile/${user?.id}`}>
+                  <div className=" text-white bg-black/20 p-4 grid place-items-center rounded-xl">
                   <h1 className="font-bold text-xl text-white">{user?.name}</h1>
                   <h1 className="font-bold text-lg">{user?.email}</h1>
                   </div>
+                  </Link>
                   <Button clickEvent={() => signOut({callbackUrl: '/', redirect: true})} modifier="btn" text="Sign out" icon={faSignOut}/>
                 </UserDropdown>
                 </div>
@@ -87,7 +99,7 @@ const Nav = () => {
 
             </div>
 
-            </div>
+            </motion.div>
   
         </>
 

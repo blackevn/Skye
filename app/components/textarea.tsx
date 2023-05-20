@@ -3,13 +3,13 @@ const TextArea = (props: any) => {
  
     const {
         
-            value,
+            value ,
             name,
             id,
             cols,
             rows,
             onChange,
-            placeholder,
+            placeholder = "Textarea",
             modifier
             
         } = props
@@ -18,10 +18,9 @@ const TextArea = (props: any) => {
   
     <>
     <textarea className={`
-   
-    text-gray-400
+      
     ${modifier}
-    textarea bg-white outline-none
+    textarea bg-transparent outline-0
 
     `}
 

@@ -8,14 +8,14 @@ const CurrentUserDetails: React.FC<UserProfile> = ({ currentUser }) => {
   return <>
 
         <div className={`profileHeaderImage`}>
-            <img className="w-full absolute" src='/backgroundPlace.jpg' alt="" />
+            <img className="w-full absolute" src={currentUser?.coverImage} alt="" />
         </div>
 
       <div className='grid grid-cols-2 md:flex gap-4 overflow-auto text-white lg:text-gray-600'>
 
                <div className="profileInfoCard">
               
-                <Avatar userId={currentUser?.id} width="w-16 lg:w-24 "/>
+<Avatar src={currentUser?.profileImage} userId={currentUser?.id} width="w-16 lg:w-24 "/>
 
                 <div className="text-center font-bold">
                     <h1>{currentUser?.name}</h1>

@@ -13,8 +13,8 @@ const UserDropdown: React.FC<UserDropdownProps> = ({currentUser, children}) => {
   const { data: session } = useSession()
 
   return <div className="dropdown dropdown-end">
-            <label tabIndex={0} className=""> <Avatar userId={currentUser?.id}/></label>
-            <div tabIndex={0} className="dropdown-content card card-compact shadow bg-opacity-25 bg-gray-400 backdrop-blur-2xl min-w-[300px] p-4">
+            <label tabIndex={0} className=""> <Avatar src={currentUser?.profileImage}/></label>
+            <div tabIndex={0} className="dropdown-content card card-compact shadow bg-opacity-25 bg-gray-400 backdrop-blur-2xl min-w-[300px] p-2 rounded-2xl">
                 <div className="card-body">
                   { children }
                 </div>

@@ -1,11 +1,12 @@
 "use client"
 
-import { useForm } from "../hooks";
+import { useForm, useVariants } from "../hooks";
 import { GroupedInput, Form, Button } from "../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight, faAt, faEye, faEyeSlash, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowAltCircleRight, faAt, faEye, faEyeSlash, faHome, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { NextPage } from "next";
+import { motion } from "framer-motion";
 
 const AuthPage: NextPage = () => {
  
@@ -20,13 +21,13 @@ const { formData,
         defaultPrevent }  = useForm() 
         
         const inputIcon = showPassword ? faEye : faEyeSlash
+
+      const { authVariants, authChildrenVariants } = useVariants()
  
-        console.log(user?.name);
-        
  
   return <>
 
-          <div className="w-full h-screen grid place-items-center">
+          <div className="w-full h-screen grid place-items-center bg-[url('/animeRainbowFlowersGreenGrass.jpg')] bg-no-repeat bg-center bg-cover">
 
             <div className="w-full h-full flex">
 
@@ -34,36 +35,58 @@ const { formData,
 
               <div className="h-full md:w-[50%] hidden md:block p-4">
 
-                <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
-                  <div className="h-full w-full authLeft bg-no-repeat bg-center bg-cover"></div>
+                <div className="w-full h-full rounded-2xl overflow-hidden">
+                  <div className="h-full w-full bg-no-repeat bg-center bg-cover grid place-items-center">
+        <h1 className="text-9xl font-bold text-white drop-shadow-2xl shadow-blue-400">Skye</h1>
+                  </div>
                   </div>
 
               </div>
 
               {/* Form section */}
 
-              <div className="h-full w-full md:w-[50%] grid place-items-center relative ">
+              <motion.div
+             
+              className="h-full w-full md:w-[50%] grid place-items-center relative ">
 
                 <div className="flex justify-between w-full absolute top-0 left-0 gap-8 items-center p-4">
 
                   <div className="flex items-center gap-8">
 
-                <p className="font-black text-2xl">Skye</p>
+                <motion.p 
+                variants={authChildrenVariants}
+                animate='show'
+                initial='hidden'
+                exit='hidden'
+                className="font-black text-2xl">Skye</motion.p>
 
                 <Link className="m-0 p-0" href="/home">
-                <p className="font-semibold text-2xl">home</p> 
+                <motion.p 
+                  variants={authChildrenVariants}
+                  animate='show'
+                  initial='hidden'
+                  exit='hidden'
+                  className="font-semibold text-2xl">home</motion.p> 
                 </Link>
 
                 </div>
 
-                <Button icon={faSignIn} text={isSignup ? "Signin" : "Signup"} modifier=" btn" clickEvent={switchAuth}/>
+                <Button icon={faSignIn} text={isSignup ? "Signin" : "Signup"} modifier={`btn ${user?.name ? "hidden" : ""}`} clickEvent={switchAuth}/>
 
                 </div>
 
 
-                <div className="w-[90%] h-[80%] grid place-items-center ">
+                <motion.div
+                  variants={authVariants}
+                  animate='show'
+                  initial='hidden'
+                  exit='hidden'
+                  className="w-full h-[80%] grid place-items-center">
 
-                  <Form onSubmit={defaultPrevent} label={ isSignup ? "Sign up" : "Sign in"} modifier="space-y-2 md:w-[300px] lg:w-[400px] xl:w-[500px]">
+               { !user?.name ? <Form 
+                  onSubmit={defaultPrevent} 
+                  label={ isSignup ? "Sign up" : "Sign in"} 
+                  modifier="space-y-2 md:w-[300px] lg:w-[400px] xl:w-[500px] mophBg p-8 rounded-3xl">
 
                   {isSignup ? 
 
@@ -144,6 +167,9 @@ const { formData,
 
                   }
 
+                  <div className="space-y-2">
+
+
                       <Button 
                       clickEvent={handleSubmit} 
                       text={isSignup ? "Signup" : "Signin"}
@@ -158,11 +184,25 @@ const { formData,
                       icon={faArrowAltCircleRight}
                       /> 
              
-                  </Form>
-
                 </div>
 
-              </div>
+                  </Form>
+
+                     :
+
+                    <div className="mophBg p-8 grid place-items-center space-y-4 rounded-3xl text-gray-600">
+                      <h1 className="text-3xl lg:text-4xl">Welcome back!</h1>
+                      <h1 className="font-bold">{user?.name}</h1>
+                      <Link href="/home">
+                        <Button icon={faHome} text="Go home"/>
+                      </Link>
+                    </div>
+
+                     
+                     }
+                </motion.div>
+
+              </motion.div>
 
             </div>
 

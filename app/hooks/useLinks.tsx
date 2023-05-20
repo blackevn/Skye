@@ -23,7 +23,7 @@ const useLinks = () => {
         {
          "id": 3,
          "name": "Star",
-         "link": "/home",
+         "link": "/",
          "icon": faStar,
          "notification": 3,
          "isAuthenticated": true

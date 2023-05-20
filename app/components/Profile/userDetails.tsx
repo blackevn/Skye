@@ -5,17 +5,25 @@ const UserDetails: React.FC<UserProfile> = ({currentProfileUser}) => {
 
   return <>
 
-      <div className=' space-y-6 text-white lg:text-gray-600'>
+      <div className=' space-y-6 '>
+
+        <h1 className="font-bold text-2xl">{currentProfileUser?.name}</h1>
 
       <div className="profileHeaderImage">
-            <img className="w-full absolute" src='/backgroundPlace.jpg' alt="" />
+
+        <img className="w-full absolute" src={`${currentProfileUser?.coverImage !== null || '' ? currentProfileUser?.coverImage
+  
+          : ('/backgroundPlace.jpg')}`} alt="" />
+
         </div>
 
         <div className="w-full gap-4 grid">
 
-        <div className="flex gap-8 items-center">
+        <div className="flex gap-4 lg:gap-8 items-center">
               
-              <Avatar width='w-16 lg:w-32'/>
+              <Avatar width='w-16 lg:w-32' src={`${currentProfileUser?.profileImage !== null || '' ? currentProfileUser?.profileImage
+  
+          : ('/vercel.svg')}`}/>
 
               <div className='flex gap-4 relative items-center min-h-[20px] max-h-[30px]'>
                 <div> 
@@ -36,15 +44,15 @@ const UserDetails: React.FC<UserProfile> = ({currentProfileUser}) => {
             </div>
 
         <div className=''>
-            <h1 className="font-bold">{currentProfileUser?.name}</h1>
-            <h1>@{currentProfileUser?.userName}</h1>
+         
+            <h1 className="font-bold text-lg">@{currentProfileUser?.userName}</h1>
         </div>
 
         </div>
   
 
           <div className="max-w-[80%] lg:max-w-[50%]">
-              <p className="">Non incididunt anim id consequat velit adipisicing laborum reprehenderit laborum quis.</p>
+              <p className="">{currentProfileUser?.bio}</p>
           </div>
 
         </div>

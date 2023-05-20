@@ -12,14 +12,13 @@ import { motion } from "framer-motion";
 
 
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
 
-    const { toggle, user } = useAppContext()
+    const { toggle, user, handleAddPostToggle } = useAppContext()
     const router = useRouter()
     const { links } = useLinks()
 
-    console.log(user);
-    
+ 
 
     const handleLogout = () => {
 
@@ -57,8 +56,7 @@ const Sidebar = () => {
             </div>}
 
             <motion.div
-                layout 
-                transition={{ type: "spring", stiffness: 100 }} 
+                
                 className={` ${toggle ? "sm:w-[400px] fixed" : "sm:w-[90px] flex"} p-4 justify-between box-border bg-base-100 bottom-0 top-16 z-[99]`}>
 
                 <div className="flex flex-col justify-between h-full">
@@ -71,7 +69,11 @@ const Sidebar = () => {
             
                 <div className="space-y-8 flex flex-col justify-center">
                    
-                 <Button  modifier=" hover:text-white hover:bg-blue-400 hover:bg-gradient-to-r from-cyan-500 to-blue-500 bg-gray-300" text={toggle ? "Add post" : ""} icon={faPlusCircle}/>
+             <Button 
+                clickEvent={handleAddPostToggle} 
+                modifier=" hover:text-white hover:bg-blue-400 hover:bg-gradient-to-r from-cyan-500 to-blue-500 bg-gray-300" 
+                text={toggle ? "Add post" : ""} 
+                icon={faPlusCircle}/>
 
                 </div>
                     
@@ -86,7 +88,11 @@ const Sidebar = () => {
                     <div className="flex justify-between">
 
                         <div>
-                            <Avatar userId={user?.id}/>
+                            <Avatar 
+                            userId={user?.id}
+                            src={`${user?.profileImage !== null || '' ? user?.profileImage
+                              : ('/vercel.svg')}`}
+                            />
                             <h1>{user?.name}</h1>
 
                         </div>
@@ -99,7 +105,11 @@ const Sidebar = () => {
 
                     : 
                    
-                    <div className=" grid place-items-center absolute w-full left-0"><Avatar userId={user?.id}/></div>}
+                    <div className=" grid place-items-center absolute w-full left-0"><Avatar 
+                                         userId={user?.id}
+                                         src={`${user?.profileImage !== null || '' ? user?.profileImage
+                                          : ('/vercel.svg')}`}
+                                         /></div>}
                     
                 </div> }
 

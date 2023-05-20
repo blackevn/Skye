@@ -1,90 +1,116 @@
-import { FormAuthData, FunctionHandler } from "@/types/interfaces";
+import { EditData } from "@/types/interfaces";
 import { useAppContext } from "@/app/context/AppContext";
 import Button from "../button";
-import { faUser, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faXmark} from "@fortawesome/free-solid-svg-icons";
 import GroupedInput from "../groupedInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextArea from "../textarea";
 import ImageUpload from "./imageUpload";
+import { useEditProfile, useVariants } from "@/app/hooks";
+import { AnimationControls, motion } from "framer-motion";
+import { useEffect } from "react";
 
-interface EditPanel {
-  
-  formData: FormAuthData
-  handleEdit: FunctionHandler
-  handleFormChange?: any
+  type EditFormProps = {
+    controller: AnimationControls
+  }
 
-}
 
-const EditForm: React.FC<EditPanel> = ({  formData, handleEdit, handleFormChange }) => {
+  const EditForm: React.FC<EditFormProps> = ({ controller }) => {
 
-  const { handleEditProfileToggle } = useAppContext()
+  const { handleEditProfileToggle, editProfileToggle  } = useAppContext()
+  const { editData, setEditData, handleEdit } = useEditProfile()
+  const { editPostVariants } =  useVariants()
 
-  console.log(formData);
-  
+          console.log(editData);
 
-  return <div className="text-gray-600 fixed top-0 right-0 bottom-0 w-full md:w-[70%] lg:w-[50%] h-full backdrop-blur-2xl z-[999] p-4 rounded-l-2xl space-y-4">
+          useEffect(() => {
+            if (!editProfileToggle) {
+              controller.start('hidden');
+            }
+          }, [!editProfileToggle]);
 
-          <Button modifier="text-2xl p-0 m-0" clickEvent={handleEditProfileToggle} text="" icon={faXmarkCircle} />
+    return <motion.div
+          animate={controller}
+          variants={editPostVariants}
+          initial='hidden'
+          className="text-gray-600 fixed top-0 right-0 bottom-0 w-full md:w-[70%] lg:w-[50%] h-full mophBg z-[999] p-4 rounded-l-2xl space-y-4">
 
-          <h1 className="text-3xl font-bold">Edit Profile</h1>
+          <Button 
+          modifier="text-2xl p-0 m-0" 
+          clickEvent={
+            handleEditProfileToggle
+          } 
+          text="" 
+          icon={faXmark} />
+
+          <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold ">Edit Profile</h1>
+          <Button text='Save' modifier="bg-white" clickEvent={handleEdit}/>
+          </div>
 
           <div className="grid grid-cols-2 gap-2">
-
          
           <GroupedInput   
           type="text"
           placeholder="Name"
           name="name"
-          value={formData.name}
-          onChange={handleFormChange}
+          value={editData.name}
+          onChange={
+              (e: React.ChangeEvent<HTMLInputElement> ) => {
+                setEditData((prevData: EditData ) => ({...prevData, name: e.target.value}))
+              }
+            }  
           >
           <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
           </GroupedInput>
 
           <GroupedInput   
           type="text"
-          placeholder="Name"
-          name="name"
-          value={formData.userName}
-          onChange={handleFormChange}
+          placeholder="Username"
+          name="userName"
+            value={editData.userName}
+          onChange={
+            (e: React.ChangeEvent<HTMLInputElement> ) => { 
+              setEditData((prevData: EditData ) => ({...prevData, userName: e.target.value}))
+            }
+          } 
           >
-          <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
+      <span className="bg-white" ><FontAwesomeIcon icon={faUser}/></span>
           </GroupedInput>
 
           <TextArea
            type="text"
            placeholder="Bio"
            name="bio"
-           value={formData.bio}
-           onChange={handleFormChange}
+           value={editData.bio}
+           onChange={
+            (e: React.ChangeEvent<HTMLInputElement> ) => {
+              setEditData((prevData: EditData ) => ({...prevData, bio: e.target.value}))
+            }
+          } 
            modifier="w-full col-span-2 textarea bg-white"
            cols='10'
           />
 
-          <input 
-          type="file" className="file-input file-input-bordered file-input-primary w-full" 
-          placeholder="Profile Image"
-          name="profileImage"
-          value={formData.profileImage}
-          onChange={image => handleFormChange(image)}
+
+          <ImageUpload 
+          value={editData.coverImage} 
+          onChange={ image => setEditData((prevData: EditData ) => ({...prevData, coverImage: image}))} 
+          label={`Edit cover image`}
+          
           />
 
-          <input 
-          type="file" className="file-input file-input-bordered file-input-primary w-full" 
-          placeholder="Cover Image"
-          name="coverImage"
-          value={formData.coverImage}
-          onChange={image => handleFormChange(image)}
-          />
+        <ImageUpload 
+          value={editData.profileImage} 
+              onChange={ image => setEditData((prevData: EditData ) => ({...prevData, profileImage: image}))} 
+          label={"Edit profile picture"}
+        
+        />
 
-          <ImageUpload onChange={function (base64: string): void {
-          throw new Error("Function not implemented.");
-          } } label={""}/>
-
-          </div>
+        </div>
 
        
-          </div>;
+        </motion.div>;
 };
 
 export default EditForm;

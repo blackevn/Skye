@@ -2,15 +2,14 @@
 
 import "../../styles/globals.css"
 
-import { Nav, Sidebar, BottomNav, DiscoveryPanel, People, Footer, Button, AdBox } from '../components'
-import { useSideContext } from '../context/SideAdContext'
+import { Nav, Sidebar, BottomNav, DiscoveryPanel, People, Footer, Button, AdBox, Modal, AddPost } from '../components'
 import { useWidth, useCurrentUser } from '../hooks';
-import { useAppContext } from "../context/AppContext";
 import Link from "next/link";
-import { faArrowAltCircleRight, faCheckCircle, faClose } from "@fortawesome/free-solid-svg-icons";
+import { faArrowAltCircleRight, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react"
 import { toast } from "react-hot-toast";
 import Toast from "../components/toast/toast";
+import { useAppContext } from "../context/AppContext";
 
 
 export default function HomeLayout({
@@ -24,16 +23,25 @@ export default function HomeLayout({
 }) {
 
   const [ width ] = useWidth()
-  const { sideToggle } = useSideContext()
-  const { toggle, user } = useAppContext()
   const { data: session } = useSession()
   const { data: currentUser } = useCurrentUser()
+  const { addPostToggle } = useAppContext()
         
   return <>
 
-    <div className="box-border">
+<div className="box-border relative">
       
+  { addPostToggle && 
+  
+                        <Modal>
+                          <AddPost/>
+                        </Modal>
+        
+                
+        }
+
       <div>
+
 
     <Nav/>
        
@@ -51,7 +59,7 @@ export default function HomeLayout({
 
           <div className='w-full lg:grid lg:grid-cols-12'>
 
-            <div className={`lg:col-span-9 overflow-scroll p-4 w-full h-full`}>
+            <div className={`lg:col-span-9 overflow-scroll p-4 w-full h-full hideScrollBar`}>
 
             { children }
 
@@ -75,7 +83,7 @@ export default function HomeLayout({
 
               <p className="text-gray-500 lg:font-medium">Sign in to create posts, like, comment, and follow others.</p>
 
-              <div className="w-full">
+      <div className="w-full space-y-2">
 
               <Link  href="/"> 
 
@@ -90,11 +98,11 @@ export default function HomeLayout({
 
                <Button 
               icon={faArrowAltCircleRight}
-              text="Sign in" 
+              text="Test Toast" 
               modifier="bg-gradient-to-r from-cyan-500 to-blue-500 btn text-white w-full"
               clickEvent={(t: any) => toast.custom(<Toast text="Task completed successfully"
                                                      modifier={`bg-green-500 text-white`}
-                                                     icon={faCheckCircle}
+                                                    icon={faInfoCircle}
                                                      mode={true}
                                                      clickEvent={() => toast.dismiss(t.id)}
                                                      />)}

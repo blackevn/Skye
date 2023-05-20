@@ -1,17 +1,12 @@
 "use client"
 
-import { DiscoveryLine, VideoCard, PostCard, Loading, People } from "../components";
-import { useSession } from "next-auth/react";
+import { DiscoveryLine, People, PostFeed } from "../components";
+import { useAppContext } from "../context/AppContext";
 
 
 const Home = () => {
 
-  const { data: session} = useSession()
-
-  const dummyArray = [ 1, 2, 3, 4, 5, 6 ]
-
-  const videoFeed = dummyArray.map( video  => <PostCard/>)
-
+  const { posts } = useAppContext()
  
   return <div className="box-border relative max-w-[100%] mb-20">
              
@@ -19,20 +14,9 @@ const Home = () => {
            {session?.user && <DiscoveryLine/>}
           </div> */}
 
-           <div className="grid w-full h-full gap-4 snap-y snap-mandatory overflow-y-scroll">
+            <PostFeed posts={posts}/>
 
-            {dummyArray.length >= 1 ? 
-           
-              videoFeed
-            
-            : 
-                <Loading/>
-           
-            }
-       
-           </div>
-
-           <div className="block my-4 lg:hidden ">
+           <div className="block my-4 lg:hidden p-4">
             <People/>
            </div>
      

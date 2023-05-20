@@ -1,5 +1,7 @@
 import { Toggle } from '@/app/components';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { type } from 'os';
+import { ReactNode } from 'react';
 
 export interface Avatar{
     image?: any
@@ -42,10 +44,22 @@ export type FormAuthData = {
   email: string,
   password: string,
   rememberMe: boolean
-  bio: string
-  profileImage: string
-  coverImage: string
   
+}
+
+export type PostData = {
+  body: string,
+  image: string
+}
+
+export type EditData = {
+
+  userName: string | undefined
+  name: string | null | undefined
+  bio: string | undefined 
+  coverImage: string | undefined
+  profileImage: string | undefined
+
 }
 
 
@@ -76,6 +90,8 @@ export interface ContextData {
 
   width: number
   user?: IUser
+  posts?: Post
+  post?: Post
   height: number
   toggle?: ToggleHandler
   showPassword?: ToggleHandler
@@ -86,7 +102,8 @@ export interface ContextData {
   userId?: IUser.id
   editProfileToggle?: ToggleHandler
   handleEditProfileToggle?: ClickEvent
-
+  addPostToggle?: ToggleHandler
+  handleAddPostToggle?: ClickEvent
 }
 
   export interface NavigationLinks {
@@ -122,20 +139,20 @@ export interface ContextData {
   createAt?: string
   userId?: string
   likedIds?: string[]
-   
+  map?: any
   }
   
   export interface IUser {
     id?: string;
-    name?: string | null;
-    userName?: string;
+    name?: string | null | SetStateAction<string>
+    userName?: string | SetStateAction<string>
     image?: string;
-    bio?: string;
+    bio?: string | SetStateAction<string>
     email: string;
     verifiedEmail: string
     image: string
-    coverImage: string
-    profileImage: string;
+    coverImage: string | SetStateAction<string>
+    profileImage: string | SetStateAction<string>
     hashedPassword: string;
     createAt: string;
     updatedAt: string;

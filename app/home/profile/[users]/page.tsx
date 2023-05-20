@@ -13,12 +13,11 @@ const page = () => {
   const { data: currentProfileUser } = useUser(userId as string)
   const { data: currentUser } = useCurrentUser()
  
- 
+  if ( !currentProfileUser?.name ) return  <Loading/>
 
   return <>
-
         
-        { currentProfileUser?.name ?  <UserProfile currentProfileUser={currentProfileUser}  currentUser={currentUser}/> : <Loading/>}
+          <UserProfile currentProfileUser={currentProfileUser}  currentUser={currentUser}/> 
 
         </>;
 };
