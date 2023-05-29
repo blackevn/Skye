@@ -26,7 +26,7 @@ return <>
             >
 
             <motion.div 
-                onClick={(e: React.MouseEvent ) => {
+             onClick={(e: React.MouseEvent ) => {
                 e.stopPropagation(); 
               }}
              drag
@@ -37,7 +37,7 @@ return <>
              bottom: 0,
                }}
             variants={modalChildrenVariants}
-            className="relative min-h-[200px] min-w-[200px] bg-white drop-shadow-xl rounded-3xl z-[9999]">
+            className="relative min-h-[200px] min-w-[200px] bg-white dark:bg-gray-800 drop-shadow-xl rounded-3xl z-[9999]">
 
                 <Button  
                     modifier="absolute top-0 right-0" 

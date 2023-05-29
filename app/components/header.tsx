@@ -1,11 +1,11 @@
 'use client';
 
-import { faBars, faXmark, faArrowAltCircleRight, faAngleLeft, faAngleRight, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark, faArrowAltCircleRight, faAngleLeft, faAngleRight, faSignOut, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import Toggle from "./toggle";
 import { useAppContext } from "../context/AppContext";
 import { useSideContext } from "../context/SideAdContext";
 import Button from "./button";
-import { useWidth } from "../hooks";
+import { useDarkMode, useWidth } from "../hooks";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react"
 import UserDropdown from "./userDropdown";
@@ -17,17 +17,17 @@ const Nav = () => {
     const [ width ] = useWidth()
     const { handleSideToggle, sideToggle } = useSideContext()
     const { data: session } = useSession()
-  
+     
   return <>
 
-  <motion.div className="fixed top-0 z-[995] w-screen box-border bg-base-100"
-          transition={{
-                  type: 'spring',
-                  stiffness: 100,
-                  damping: 10,
-              
-              }}
-  >
+  <motion.div className="fixed top-0 z-[995] w-screen box-border bg-base-100 dark:bg-black text-gray-600 dark:text-gray-200"
+            transition={{
+                    type: 'spring',
+                    stiffness: 100,
+                    damping: 10,
+                
+                }}
+            >
               
             { width <= 700 && <motion.div 
                                 
@@ -48,8 +48,9 @@ const Nav = () => {
                     toggleEvent={handleToggle}
                 />
 
+                <Link href='/home'>
                 <p className="font-black text-2xl">Skye</p>
-                
+                </Link>
                 </div>
 
                 <div className=" flex gap-8 items-center">
@@ -83,18 +84,14 @@ const Nav = () => {
                  }
 
                 </div> 
-          
-                {/* <div className="hidden lg:grid place-items-center">
-
+{/*                         
                 <Toggle
-                    on={faAngleRight}
-                    off={faAngleLeft}
-                    checked={sideToggle}
-                    toggleEvent={handleSideToggle}
-                    />
-
-                </div> */}
-          
+                    on={faSun}
+                    off={faMoon}
+                    checked={darkMode}
+                    toggleEvent={toggleDarkMode}
+                    /> */}
+                         
                 </div>
 
             </div>

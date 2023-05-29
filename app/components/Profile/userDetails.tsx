@@ -28,17 +28,17 @@ const UserDetails: React.FC<UserProfile> = ({currentProfileUser}) => {
               <div className='flex gap-4 relative items-center min-h-[20px] max-h-[30px]'>
                 <div> 
                     <h2>Followers</h2>
-                    <span className="font-bold text-3xl">0{currentProfileUser?.followingId}</span> 
+                    <span className="font-bold text-3xl">0{currentProfileUser?.followingId.length}</span> 
                 </div>
                   <div className='border h-[50px] border-gray-400 rounded-full '></div> 
                 <div> 
                   <h2>Following </h2>
-                  <span className="font-bold text-3xl">0{currentProfileUser?.followingId}</span>
+                  <span className="font-bold text-3xl">0{currentProfileUser?.followingId.length}</span>
                 </div>
                   <div className='border h-[50px] border-gray-400 rounded-full'></div> 
                 <div> 
                   <h2>Posts </h2>
-                  <span className="font-bold text-3xl">0{currentProfileUser?.followingId}</span>
+                  <span className="font-bold text-3xl">0</span>
                 </div>
                 </div>
             </div>

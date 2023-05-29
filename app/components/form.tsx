@@ -26,8 +26,8 @@ const Form = (props: any) => {
                 text-4xl 
                 m-4 
                 
-                text-white
-                dark:text-gray-600
+                text-gray-600
+                dark:text-gray-200
                
                 `}  >{label}</h2>
 

@@ -104,6 +104,9 @@ export interface ContextData {
   handleEditProfileToggle?: ClickEvent
   addPostToggle?: ToggleHandler
   handleAddPostToggle?: ClickEvent
+  darkMode?: ToggleHandler
+  toggleDarkMode?: ClickEvent
+  
 }
 
   export interface NavigationLinks {
@@ -140,6 +143,9 @@ export interface ContextData {
   userId?: string
   likedIds?: string[]
   map?: any
+  filter?: any
+  user?: IUser
+
   }
   
   export interface IUser {
@@ -165,5 +171,6 @@ export interface ContextData {
 
     currentProfileUser?: IUser
     currentUser?: IUser
+    userId?: string
   
   }

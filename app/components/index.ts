@@ -30,6 +30,7 @@ import ImageUpload from "./Forms/imageUpload";
 import Modal from "./Modal/modal";
 import AddPost from "./Forms/addPost";
 import PostFeed from "./Post/postFeed";
+import Comments from "./Comments/comments";
 
 
 
@@ -44,6 +45,6 @@ export {
     DiscoveryLine, Toast, ToastButton, Loading,
     ProfileHeader, UserDetails, PostCard, Modal,
     CurrentUserDetails, EditForm, ImageUpload, 
-    AddPost, PostFeed
+    AddPost, PostFeed, Comments 
    
 }
