@@ -27,7 +27,7 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
   const [ cardWidth, setCardWidth ] = useState<number>(0)
   const [ cardPosition, setCardPosition ] = useState<number>(0)
 
-  const likeIcon = likePostToggle ? faHeartSolid : faHeart;  
+
 
   const onLike = () => {
     handleLikePostToggle()
@@ -58,7 +58,7 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
     }   
    }, [!commentsToggle]);
 
-   console.log(cardPosition);
+
    
   return  <div 
            ref={postDivRef}
@@ -73,25 +73,25 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
               <div className="flex gap-4 items-center">
                 <Avatar 
                 width="w-10 lg:w-11"
-                src={props.user?.profileImage}
-                userId={props.user?.id}
+                src={props?.user?.profileImage}
+                userId={props?.user?.id}
                 />
               <div>
-                <h1 className="font-bold">{props.user?.name}</h1>
-                <h1>@{props.user?.userName}</h1>
+                <h1 className="font-bold">{props?.user?.name}</h1>
+                <h1>@{props?.user?.userName}</h1>
               </div>
               </div>
 
               <div>
-               { props.user?.id === currentUser?.id && <Button text='' icon={faEllipsisH}/>}
+               { props?.user?.id === currentUser?.id && <Button text='' icon={faEllipsisH}/>}
               </div>
               </div>
-              <p className="text-lg lg:text-3xl font-thin pb-4">{props.body}</p>
+              <p className="text-lg lg:text-3xl font-thin pb-4">{props?.body}</p>
 
-           <Link href={`/home/posts/${props.id}`}>
+           <Link href={`/home/posts/${props?.id}`}>
             <div  className="grid place-items-center w-full">
             <img
-             src={props.image}
+             src={props?.image}
              className="rounded-lg lg:rounded-2xl max-h-[500px]"
              />
              </div>
@@ -106,9 +106,12 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
           <div className="flex gap-4">
 
             <Button 
-            modifier={`bg-gray-500/20 p-0 ${likePostToggle ? "text-red-500 bg-red-500/20" : "bg-gray-500/20"}`}  
-            icon={likeIcon} 
-            text={ hasLiked >= 1 ? props.likedIds?.length.toString() : ''} 
+            modifier={`bg-gray-500/20 p-0 
+            ${likePostToggle ? "text-red-500 bg-red-500/20" 
+            : "bg-gray-500/20"} 
+            ${ hasLiked && "text-red-500 bg-red-500/20"} `}  
+            icon={ hasLiked && likePostToggle ? faHeartSolid : faHeart} 
+            text={ props?.likedIds?.length >= 1 ? props?.likedIds?.length.toString() : ''} 
             clickEvent={onLike}/>
 
             <Button 
@@ -128,6 +131,8 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
           cardWidth={cardWidth}
           commentsController={commentsController}
           handleCommentsToggle={handleCommentsToggle}
+          comments={props?.comments}
+          postId={props?.id}
           />
 
         </div>

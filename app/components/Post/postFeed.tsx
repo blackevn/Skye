@@ -29,11 +29,13 @@ const PostFeed: React.FC<PostFeedProps> = ({ posts }) => {
                             >
                               
                                 <PostCard 
-                                    image={post?.image}
-                                    body={post?.body}
-                                    id={post?.id}
-                                    userId={post?.user?.id}
-                                    user={post?.user}
+                                   image={post?.image}
+                                   body={post?.body}
+                                   id={post?.id}
+                                   userId={post?.user?.id}
+                                   user={post?.user}
+                                   comments={post?.comments}
+                                   likedIds={post?.likedIds}
                                 />
                               
                             </motion.div>

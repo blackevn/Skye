@@ -141,12 +141,28 @@ export interface ContextData {
   video?: string
   createAt?: string
   userId?: string
-  likedIds?: string[]
+  likedIds: string[]
   map?: any
   filter?: any
   user?: IUser
+  comments?: Comments
 
   }
+
+  export interface Comments {
+  id?: string 
+  body?: string 
+  createAt?: string 
+  updateAt?: string 
+  userId?: string 
+  postId?: string 
+  user?: string 
+  post?: string 
+  map?: any
+  filter?: any
+  length?: any
+  }
+  
   
   export interface IUser {
     id?: string;
