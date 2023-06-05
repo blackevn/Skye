@@ -21,6 +21,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: {
         body,
         userId: currentUser.id,
+        userName: currentUser.userName,
+        name: currentUser.name,
         postId
       }
     });

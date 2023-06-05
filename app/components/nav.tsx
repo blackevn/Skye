@@ -1,13 +1,13 @@
 'use client';
 
-import { faArrowAltCircleRight, faMoon, faPlusCircle, faSignOut, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faPlusCircle, faSignOut, faSun } from "@fortawesome/free-solid-svg-icons";
 import Button from "./button";
 import NavLink from "./navlink";
 import { useAppContext } from "../context/AppContext"; 
 import { signOut } from "next-auth/react"
 import Avatar from "./avatar";
 import { useRouter } from "next/navigation";
-import { useLinks } from "../hooks";
+import { useLinks, useVariants } from "../hooks";
 import { motion } from "framer-motion";
 import Toggle from "./toggle";
 
@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
     const router = useRouter()
     const { links } = useLinks()
 
- 
+    const { navVariants } = useVariants()
 
     const handleLogout = () => {
 
@@ -40,7 +40,7 @@ const Sidebar: React.FC = () => {
                                                 href={link?.link}
                                                 />)
                                                
-    const exploreLink = links.filter(link => link.name === "Explore").map(link => <NavLink
+    const unauthorizedLink = links.filter(link => link.name === "Home").map(link => <NavLink
                                                                                     key={link.id}
                                                                                     name={link.name}
                                                                                     icon={link.icon}
@@ -51,21 +51,21 @@ const Sidebar: React.FC = () => {
    return <>
 
             {toggle && <div 
-            className="w-[93px] h-full">
-                
+            className="w-[93px] h-full"> 
             </div>}
 
             <motion.div
+              
                 onClick={(e: React.MouseEvent ) => {
                     e.stopPropagation(); 
                   }}
-                className={` ${toggle ? "sm:w-[400px] fixed z-[999]" : "sm:w-[90px] flex z-0"} nav`}>
+                  className={` ${toggle ? "sm:w-[400px] fixed z-[999]" : "sm:w-[90px] flex z-0"} nav`}>
 
                 <div className="flex flex-col justify-between h-full">
 
                 <div className="space-y-4">
                     
-                { user ? authorizedLinks : exploreLink}
+                { user ? authorizedLinks : unauthorizedLink}
 
                 { user &&
             
@@ -73,7 +73,7 @@ const Sidebar: React.FC = () => {
                    
                 <Button 
                 clickEvent={handleAddPostToggle} 
-                modifier="hover:text-white bg-gray-300
+                modifier="hover:text-white shadow-xl
                 hover:bg-gradient-to-r dark:bg-gray-800
                 from-cyan-500 to-blue-500 capitalize" 
                 text={toggle ? "Add post" : ""} 

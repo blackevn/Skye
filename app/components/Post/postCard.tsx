@@ -1,15 +1,15 @@
-import { Post } from "@/types/interfaces";
+import { Post, Comments as CommentsType } from "@/types/interfaces";
 import Button from "../button";
-import { motion, useAnimationControls } from "framer-motion";
-import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faEllipsisH, faHeart as faHeartSolid, faShare, faShareAlt } from "@fortawesome/free-solid-svg-icons";
+import { useAnimationControls } from "framer-motion";
+import {  faHeart, faCommentAlt as faCommentAltRegular } from "@fortawesome/free-regular-svg-icons";
+import { faCommentAlt, faEllipsisH, faHeart as faHeartSolid, faShare } from "@fortawesome/free-solid-svg-icons";
 import { useAppContext } from "../../context/AppContext";
 import { useCurrentUser, useToggle, useLike, useVariants } from "../../hooks";
 import Avatar from "../avatar";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { elementWidth as homeWidth } from "@/app/home/home";
-import Input from "../input";
+import { usePathname, useRouter } from "next/navigation";
 import Comments from "../Comments/comments";
 
 const PostCard: React.FC<Post> = ({ ...props }) => {
@@ -26,9 +26,12 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
   // const commentDivRef = useRef<HTMLDivElement>(document.getElementById('someDiv'));
   const [ cardWidth, setCardWidth ] = useState<number>(0)
   const [ cardPosition, setCardPosition ] = useState<number>(0)
+  const pathname = usePathname()
+  const router = useRouter()
 
+  const include = pathname?.includes('posts') || pathname?.includes('profile') 
 
-
+   
   const onLike = () => {
     handleLikePostToggle()
     toggleLike()
@@ -57,7 +60,6 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
 
     }   
    }, [!commentsToggle]);
-
 
    
   return  <div 
@@ -110,14 +112,17 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
             ${likePostToggle ? "text-red-500 bg-red-500/20" 
             : "bg-gray-500/20"} 
             ${ hasLiked && "text-red-500 bg-red-500/20"} `}  
-            icon={ hasLiked && likePostToggle ? faHeartSolid : faHeart} 
+            icon={hasLiked || likePostToggle ? faHeartSolid : faHeart} 
             text={ props?.likedIds?.length >= 1 ? props?.likedIds?.length.toString() : ''} 
             clickEvent={onLike}/>
 
             <Button 
             clickEvent={handleCommentsToggle} 
             modifier="bg-gray-500/20 p-0"  
-            icon={faComment} text=""/>
+            icon={ commentsToggle ? faCommentAlt : faCommentAltRegular} 
+            text={props?.comments?.length >= 1 ? props?.comments?.length.toString() : ''}
+            // disabled={!include ? true : false }
+            />
 
             </div>
             <div>
@@ -133,6 +138,7 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
           handleCommentsToggle={handleCommentsToggle}
           comments={props?.comments}
           postId={props?.id}
+        
           />
 
         </div>

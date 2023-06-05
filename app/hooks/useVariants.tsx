@@ -5,6 +5,18 @@ const useVariants = () => {
 
     const [ width ] = useWidth()
 
+    const navVariants = {
+        hidden: {
+            width: '90px',
+            zIndex: 0
+        },
+
+        show: {
+            width: '400px',
+            zIndex: 999
+        }
+    }
+
     const commentsVariants = {
         hidden: {
             y: 1200,
@@ -150,7 +162,8 @@ const useVariants = () => {
 
     modalVariants, authVariants, authChildrenVariants, 
     modalChildrenVariants, editPostVariants, skyeText,
-    toastVariants, commentsVariants, commentsVariantsChildren
+    toastVariants, commentsVariants, commentsVariantsChildren,
+    navVariants
 
   }
 }

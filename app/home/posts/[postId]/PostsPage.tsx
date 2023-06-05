@@ -18,9 +18,6 @@ const router = useRouter()
 
 const { data: post } = usePost( postId as string )
 
-console.log(post);
-console.log(postId);
-
 if (!post) return <Loading/>
 
             

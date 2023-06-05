@@ -22,7 +22,7 @@ export const AppContext = ({children}: IProps) => {
   const { data: users } = useUsers()
   
   const { data: posts = [] } = usePosts( users?.id as string)
-
+  const  { data: post } = usePost(posts?.id as string)
   const [ toggle, handleToggle ] = useToggle(false)
   const [ adSectionToggle, handleAdSectionToggle ] = useToggle()
   const [ showPassword, handlePassword ] = useToggle(false)
@@ -37,14 +37,14 @@ export const AppContext = ({children}: IProps) => {
   }
 
 
-  return <Context.Provider  value={{ user, width, toggle, handleToggle, 
+  return <Context.Provider  value={{ 
+                                     user, width, toggle, handleToggle, 
                                      adSectionToggle, handleAdSectionToggle, 
                                      height, posts, showPassword, handlePassword,
                                      editProfileToggle, handleEditProfileToggle,
                                      addPostToggle, handleAddPostToggle, darkMode, 
-                                     toggleDarkMode
-                            
-
+                                     toggleDarkMode, post, users
+                                     
                                      }}>
 
             {children}

@@ -90,6 +90,7 @@ export interface ContextData {
 
   width: number
   user?: IUser
+  users?: IUser
   posts?: Post
   post?: Post
   height: number
@@ -118,6 +119,7 @@ export interface ContextData {
     icon: IconDefinition
     notification?: number
     isAuthenticated?: boolean
+    hasNotification?: boolean
   }
 
   export interface DiscoveryLinks {
@@ -145,8 +147,8 @@ export interface ContextData {
   map?: any
   filter?: any
   user?: IUser
-  comments?: Comments
-
+  comments: Comments[]
+  length?: any
   }
 
   export interface Comments {
@@ -154,13 +156,15 @@ export interface ContextData {
   body?: string 
   createAt?: string 
   updateAt?: string 
-  userId?: string 
+  userId?: string
   postId?: string 
-  user?: string 
+  user?: IUser
   post?: string 
   map?: any
   filter?: any
   length?: any
+  name?: string
+  userName?: string
   }
   
   
@@ -181,6 +185,9 @@ export interface ContextData {
     followingId: string;
     hasNotification: boolean
     bg?: string
+    filter?: any
+    length?: any
+    map?: any
   }
 
   type UserProfile = {

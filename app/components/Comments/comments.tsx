@@ -1,13 +1,14 @@
 import { AnimationControls, motion } from "framer-motion";
 import Button from "../button";
 import Input from "../input";
-import { useState } from "react";
-import { usePost, usePosts, useVariants } from "@/app/hooks";
+import { useEffect, useState } from "react";
+import { usePost, usePosts, useUsers, useVariants } from "@/app/hooks";
 import { faComment, faTriangleExclamation, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Comments } from "@/types/interfaces";
+import { Comments, IUser, Post } from "@/types/interfaces";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Toast from "../toast/toast";
+import { useAppContext } from "@/app/context/AppContext";
 
 
 type CommentsProps = {
@@ -16,17 +17,20 @@ type CommentsProps = {
  commentsToggle?: boolean 
  handleCommentsToggle?: () => void
  commentsController: AnimationControls
- comments?: Comments
+ comments?: Comments[]
  postId?: string
 }
 
- const Comments: React.FC<CommentsProps> = ({ cardWidth, cardPosition, comments, handleCommentsToggle, commentsController, postId }) => {
+
+
+ const Comments: React.FC<CommentsProps> = ({ cardWidth, cardPosition, comments = [], handleCommentsToggle, commentsController, postId }) => {
  const { commentsVariants, commentsVariantsChildren } = useVariants()
+ const { post, posts, users } = useAppContext()
  const [ postComment, setPostComments ] = useState<Record<string, any>>({ body: ''})
  const { mutate: mutatedComments } = usePost(postId as string)
  const { mutate: mutatedComment } = usePosts()
 
- const sendComment = () => {
+const sendComment = () => {
   
    axios.post(`/api/comments?postId=${postId}`, postComment)
    .then(res => toast.custom(<Toast
@@ -39,18 +43,19 @@ type CommentsProps = {
     modifier="bg-orange-500 text-white"
     icon={faTriangleExclamation}
 
+    
     />)) 
     
+    setPostComments({ body: ''})
     mutatedComments()
     mutatedComment()
 
  }
 
- console.log(comments);
 
-comments?.map((item: Comment) => (console.log(item)))
- 
+      console.log(comments);
   
+
     return <>
     <motion.div
         variants={commentsVariants}
@@ -80,11 +85,14 @@ comments?.map((item: Comment) => (console.log(item)))
               <div className="max-h-[500px] min-h-[500px] lg:min-h-[200px] overflow-hidden ">
 
                { comments?.length >= 1 ?
-
-                <div>
-                  {comments?.map((comment: Comments) => {
-                    <h1>{comment?.body}</h1>
-                  })}
+              <div className="p-8 space-y-4">
+                      {comments?.map((comment: Comments) =>( 
+                     <div key={comment?.id}>
+                        <h1 className="font-bold">{comment?.name}</h1>
+                        <h1>{comment?.body}</h1>
+                      </div>
+                      
+                      ))}
                 </div>
 
                 :
