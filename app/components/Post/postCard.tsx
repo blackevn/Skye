@@ -2,7 +2,7 @@ import { Post, Comments as CommentsType } from "@/types/interfaces";
 import Button from "../button";
 import { useAnimationControls } from "framer-motion";
 import {  faHeart, faCommentAlt as faCommentAltRegular } from "@fortawesome/free-regular-svg-icons";
-import { faCommentAlt, faEllipsisH, faHeart as faHeartSolid, faShare } from "@fortawesome/free-solid-svg-icons";
+import { faArrowCircleRight, faCommentAlt, faEllipsisH, faHeart as faHeartSolid, faShare } from "@fortawesome/free-solid-svg-icons";
 import { useAppContext } from "../../context/AppContext";
 import { useCurrentUser, useToggle, useLike, useVariants } from "../../hooks";
 import Avatar from "../avatar";
@@ -11,6 +11,8 @@ import { useEffect, useRef, useState } from "react";
 import { elementWidth as homeWidth } from "@/app/home/home";
 import { usePathname, useRouter } from "next/navigation";
 import Comments from "../Comments/comments";
+import { toast } from "react-hot-toast";
+import Toast from "../toast/toast";
 
 const PostCard: React.FC<Post> = ({ ...props }) => {
 
@@ -32,10 +34,22 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
   const include = pathname?.includes('posts') || pathname?.includes('profile') 
 
    
-  const onLike = () => {
-    handleLikePostToggle()
-    toggleLike()
-  }
+      const onLike = () => {
+
+    if(currentUser){ 
+        handleLikePostToggle()
+        toggleLike()} else {
+
+          toast.custom((t: any) => (<Toast>
+                                    <Link href={`/`}>
+                                    <Button
+                                     text="Sign in"
+                                     icon={faArrowCircleRight}
+                                     />  
+                                     </Link>
+                                    </Toast>))
+        }
+      }
   
   useEffect(() => {
     const card = postDivRef.current.getBoundingClientRect().width
