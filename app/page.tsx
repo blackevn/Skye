@@ -2,6 +2,8 @@
 import AuthPage from "./auth/AuthPage";
 import { Metadata } from "next";
 
+
+
 const page = async () => {
 
 

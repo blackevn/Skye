@@ -36,14 +36,13 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
         handleLikePostToggle()
         toggleLike()} else {
 
-        toast.custom((t: any) => (<Toast>
-                                    <Link href={`/`}>
-                                    <Button
-                                     text="Sign in"
-                                     icon={faArrowCircleRight}
-                                     />  
-                                     </Link>
-                                    </Toast>))
+        toast.custom((t: any) => (<Link href={`/`}>
+                                  <Toast
+                                    text="Sign in to like post"
+                                    icon={faArrowCircleRight}
+                                    modifier="bg-blue-500 text-white"
+                                    />
+                                  </Link>))
         }
       }
   

@@ -8,10 +8,18 @@ import { SideAdContext } from './context/SideAdContext'
 import { SessionProvider } from "next-auth/react";
 import { AnimatePresence } from 'framer-motion';
 import Head from 'next/head';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function RootLayout({   children  } : {
     children: React.ReactNode 
   }) {
+
+    const router = useRouter()
+
+    useEffect(() => {
+      router.push('/home')
+    }, [])
 
     return <html lang="en">
 
