@@ -26,7 +26,8 @@ export default function RootLayout({   children  } : {
                 <AppContext>
                   <SideAdContext>
                   <Toaster/>
-                    <div className="overflow-x-hidden box-border dark:bg-black bg:bg-base-100 hideScrollBar">
+                  <div 
+                  className="overflow-x-hidden box-border dark:bg-black bg:bg-base-100 hideScrollBar text-gray-600 dark:text-gray-200">
                       
                               {children}   
 

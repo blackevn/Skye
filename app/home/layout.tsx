@@ -9,6 +9,7 @@ import { faArrowAltCircleRight, faInfoCircle } from "@fortawesome/free-solid-svg
 import { toast } from "react-hot-toast";
 import Toast from "../components/toast/toast";
 import { useAppContext } from "../context/AppContext";
+import Head from "next/head";
 
 export default function HomeLayout({
 
@@ -25,6 +26,11 @@ export default function HomeLayout({
   const { addPostToggle, user } = useAppContext()
         
   return <>
+
+  
+      <Head>
+        <title>Skye</title>
+      </Head>
 
           <div className="box-border relative text-gray-600 dark:text-gray-200">
                 

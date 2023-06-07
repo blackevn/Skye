@@ -1,10 +1,10 @@
 import { AnimationControls, motion } from "framer-motion";
 import Button from "../button";
 import Input from "../input";
-import { useEffect, useState } from "react";
-import { usePost, usePosts, useUsers, useVariants } from "@/app/hooks";
+import { useState } from "react";
+import { usePost, usePosts, useVariants } from "@/app/hooks";
 import { faComment, faTriangleExclamation, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Comments, IUser, Post } from "@/types/interfaces";
+import { Comments } from "@/types/interfaces";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Toast from "../toast/toast";
@@ -42,7 +42,6 @@ const sendComment = () => {
     text={error.message}
     modifier="bg-orange-500 text-white"
     icon={faTriangleExclamation}
-
     
     />)) 
     
@@ -50,11 +49,7 @@ const sendComment = () => {
     mutatedComments()
     mutatedComment()
 
- }
-
-
-      console.log(comments);
-  
+    }
 
     return <>
     <motion.div

@@ -22,25 +22,21 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
   const { user, width } = useAppContext()
   const { toggleLike, hasLiked } = useLike({postId: props.id, userId: user?.id})
   const { data: currentUser } = useCurrentUser()
-  const { commentsVariants, commentsVariantsChildren } = useVariants()
   const commentsController = useAnimationControls()
   const postDivRef = useRef<any>(() => 0)
-  // const commentDivRef = useRef<HTMLDivElement>(document.getElementById('someDiv'));
   const [ cardWidth, setCardWidth ] = useState<number>(0)
   const [ cardPosition, setCardPosition ] = useState<number>(0)
   const pathname = usePathname()
   const router = useRouter()
 
   const include = pathname?.includes('posts') || pathname?.includes('profile') 
-
-   
-      const onLike = () => {
+  const onLike = () => {
 
     if(currentUser){ 
         handleLikePostToggle()
         toggleLike()} else {
 
-          toast.custom((t: any) => (<Toast>
+        toast.custom((t: any) => (<Toast>
                                     <Link href={`/`}>
                                     <Button
                                      text="Sign in"
@@ -54,7 +50,6 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
   useEffect(() => {
     const card = postDivRef.current.getBoundingClientRect().width
     const position = postDivRef.current.getBoundingClientRect().x
-    // commentDivRef.current.style.width = `${card}px`
     setCardWidth(card)
     setCardPosition(position)
    }, [commentsToggle, handleCommentsToggle]);
@@ -123,10 +118,10 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
 
             <Button 
             modifier={`bg-gray-500/20 p-0 
-            ${likePostToggle ? "text-red-500 bg-red-500/20" 
+            ${ likePostToggle ? "text-red-500 bg-red-500/20" 
             : "bg-gray-500/20"} 
             ${ hasLiked && "text-red-500 bg-red-500/20"} `}  
-            icon={hasLiked || likePostToggle ? faHeartSolid : faHeart} 
+            icon={ hasLiked || likePostToggle ? faHeartSolid : faHeart} 
             text={ props?.likedIds?.length >= 1 ? props?.likedIds?.length.toString() : ''} 
             clickEvent={onLike}/>
 
@@ -134,8 +129,7 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
             clickEvent={handleCommentsToggle} 
             modifier="bg-gray-500/20 p-0"  
             icon={ commentsToggle ? faCommentAlt : faCommentAltRegular} 
-            text={props?.comments?.length >= 1 ? props?.comments?.length.toString() : ''}
-            // disabled={!include ? true : false }
+            text={ props?.comments?.length >= 1 ? props?.comments?.length.toString() : ''}
             />
 
             </div>

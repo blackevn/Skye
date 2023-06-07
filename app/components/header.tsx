@@ -1,39 +1,39 @@
 'use client';
 
-import { faBars, faXmark, faArrowAltCircleRight, faAngleLeft, faAngleRight, faSignOut, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark, faArrowAltCircleRight, faAngleLeft, faAngleRight, faSignOut, faMoon, faSun, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Toggle from "./toggle";
 import { useAppContext } from "../context/AppContext";
 import { useSideContext } from "../context/SideAdContext";
 import Button from "./button";
-import { useDarkMode, useWidth } from "../hooks";
+import { useWidth } from "../hooks";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react"
 import UserDropdown from "./userDropdown";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { useAnimation } from "framer-motion";
 
 const Nav = () => {
 
-    const { toggle, handleToggle, user } = useAppContext()
+    const { toggle, handleToggle, user, darkMode, toggleDarkMode, handleAddPostToggle } = useAppContext()
     const [ width ] = useWidth()
     const { handleSideToggle, sideToggle } = useSideContext()
     const { data: session } = useSession()
-     
-  return <>
+    const headerController = useAnimation()
+   
+    return <>
 
-  <motion.div className="fixed top-0 z-[995] w-screen box-border bg-base-100 dark:bg-black text-gray-600 dark:text-gray-200"
-            transition={{
-                    type: 'spring',
-                    stiffness: 100,
-                    damping: 10,
-                
-                }}
-            >
+            <motion.div className="fixed top-0 z-[995] w-screen box-border bg-base-100 dark:bg-black text-gray-600 dark:text-gray-200">
               
             { width <= 700 && <motion.div 
-                                
-                                className={` ${toggle ? "block" : "hidden"} p-8`}>
+                               
+              className={` p-8 ${toggle ? 'block' : 'hidden'}`}>
 
-            <p className="text-gray-500 font-semibold">Sign in to create posts, like, comment on other posts and follow others.</p>
+            {toggle && <div>
+                <p className="text-gray-500 font-semibold">Sign in to create posts, like, comment on other posts and follow others.</p>
+              </div>
+            }
+
 
             </motion.div> }
 
@@ -69,15 +69,44 @@ const Nav = () => {
 
                 :
 
-                <div className={`${width >= 700 && "hidden"}`}>
+              <div className={`${width >= 700 && "hidden"} flex gap-8 items-center`}>
+                  <Button
+                  icon={faPlus}
+                  modifier="blueGradient"
+                  text=""
+                  clickEvent={handleAddPostToggle}
+                  />
                 <UserDropdown currentUser={user}>
+                <div className="flex justify-between pb-4">
+                  <div 
+                  className='flex gap-2 items-center p-1 cursor-pointer relative overflow-hidden max-w-fit'>  
+                  <div 
+                     onClick={(e: React.MouseEvent ) => {
+                        e.stopPropagation(); 
+                        toggleDarkMode()
+                      }}
+                  className="top-0 bottom-0 right-0 left-0 z-50 absolute"></div>
+                    <Toggle
+                    on={faSun}
+                    off={faMoon}
+                    checked={darkMode}
+                    />
+
+                    <h1>
+                        { darkMode ? 'Light' : 'Dark' }
+                    </h1>
+
+                  </div>
+
+                  <Button clickEvent={() => signOut({callbackUrl: '/', redirect: true})} text="Sign out" icon={faSignOut}/>
+                  </div>
                   <Link href={`/home/profile/${user?.id}`}>
                   <div className=" text-white bg-black/20 p-4 grid place-items-center rounded-xl">
                   <h1 className="font-bold text-xl text-white">{user?.name}</h1>
                   <h1 className="font-bold text-lg">{user?.email}</h1>
                   </div>
                   </Link>
-                  <Button clickEvent={() => signOut({callbackUrl: '/', redirect: true})} modifier="btn" text="Sign out" icon={faSignOut}/>
+                  
                 </UserDropdown>
                 </div>
 

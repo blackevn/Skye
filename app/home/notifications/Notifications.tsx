@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { NextPage } from "next";
+import { motion } from "framer-motion";
 import { useCurrentUser, useNotifications } from "@/app/hooks";
 
 
@@ -9,6 +10,9 @@ const Notifications: NextPage = () => {
   
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
   const { data: fetchedNotifications = [] } = useNotifications(currentUser?.id);
+
+  console.log(fetchedNotifications);
+  
 
     useEffect(() => {
       mutateCurrentUser();
@@ -22,14 +26,30 @@ const Notifications: NextPage = () => {
       )
     }
 
-  return <div className="flex flex-col">
-    {fetchedNotifications.map((notification: Record<string, any>) => (
-    <div key={notification.id} className="flex flex-row items-center p-6 gap-4 border-b-[1px] border-neutral-800">
-        <p className="text-white">
+    return <div className="flex flex-col gap-2 pb-20">
+    {fetchedNotifications.map((notification: Record<string, any>, i: number) => (
+    <motion.div 
+      initial={{
+        y: 10,
+        opacity: 0.5
+    }}
+    animate={{
+        y: 0,
+        opacity: 1,
+        transition: {
+            delay: i * 0.1,
+            ease: 'easeIn'
+        }
+    }}
+      key={notification.id} 
+      className="flex flex-row items-center p-4 gap-4 mophBg rounded-2xl">
+        <p>
         {notification.body}
       </p>
-    </div>
-    ))}
+    </motion.div>
+
+))}
+<p className="text-center p-8">That's all we got!</p>
 </div>
 }
 
