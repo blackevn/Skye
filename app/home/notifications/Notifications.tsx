@@ -1,18 +1,19 @@
 'use client'
 
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { NextPage } from "next";
 import { motion } from "framer-motion";
 import { useCurrentUser, useNotifications } from "@/app/hooks";
+import moment from "moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAt, faThumbsUp, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 
 const Notifications: NextPage = () => {
   
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
   const { data: fetchedNotifications = [] } = useNotifications(currentUser?.id);
-
-  console.log(fetchedNotifications);
-  
+ 
 
     useEffect(() => {
       mutateCurrentUser();
@@ -42,10 +43,15 @@ const Notifications: NextPage = () => {
         }
     }}
       key={notification.id} 
-      className="flex flex-row items-center p-4 gap-4 mophBg rounded-2xl">
-        <p>
-        {notification.body}
-      </p>
+         className="flex flex-row items-center p-4 gap-4 mophBg rounded-2xl justify-between">
+      <div className="flex items-center gap-4">
+      <FontAwesomeIcon 
+      icon={ notification.body.includes('followed') ? 
+      faUserPlus : notification.body.includes('liked') ? 
+      faThumbsUp : faAt}/>
+        <p>{notification.body}</p>
+        </div>
+        <p className="text-[12px] italic font-extralight">{moment(notification.createdAt).fromNow()}</p>
     </motion.div>
 
 ))}
