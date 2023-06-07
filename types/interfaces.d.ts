@@ -90,6 +90,7 @@ export interface ContextData {
 
   width: number
   user?: IUser
+  users?: IUser
   posts?: Post
   post?: Post
   height: number
@@ -104,6 +105,9 @@ export interface ContextData {
   handleEditProfileToggle?: ClickEvent
   addPostToggle?: ToggleHandler
   handleAddPostToggle?: ClickEvent
+  darkMode?: ToggleHandler
+  toggleDarkMode?: ClickEvent
+  
 }
 
   export interface NavigationLinks {
@@ -115,6 +119,7 @@ export interface ContextData {
     icon: IconDefinition
     notification?: number
     isAuthenticated?: boolean
+    hasNotification?: boolean
   }
 
   export interface DiscoveryLinks {
@@ -138,9 +143,30 @@ export interface ContextData {
   video?: string
   createAt?: string
   userId?: string
-  likedIds?: string[]
+  likedIds: string[]
   map?: any
+  filter?: any
+  user?: IUser
+  comments: Comments[]
+  length?: any
   }
+
+  export interface Comments {
+  id?: string 
+  body?: string 
+  createAt?: string 
+  updateAt?: string 
+  userId?: string
+  postId?: string 
+  user?: IUser
+  post?: string 
+  map?: any
+  filter?: any
+  length?: any
+  name?: string
+  userName?: string
+  }
+  
   
   export interface IUser {
     id?: string;
@@ -159,11 +185,15 @@ export interface ContextData {
     followingId: string;
     hasNotification: boolean
     bg?: string
+    filter?: any
+    length?: any
+    map?: any
   }
 
   type UserProfile = {
 
     currentProfileUser?: IUser
     currentUser?: IUser
+    userId?: string
   
   }

@@ -1,6 +1,15 @@
-import { faSearch, faHome, faCompass, faPlusCircle, faUser, faStar, faCircle, faGamepad, faHatCowboy, faTShirt, faTools, faLaptop, faCarrot, faMusic, faCar } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faHome, faCompass, faPlusCircle, faUser, 
+         faStar, faCircle, faGamepad, faHatCowboy,faTShirt, 
+         faTools, faLaptop, faCarrot, faMusic, faCar, faBell 
+} from "@fortawesome/free-solid-svg-icons";
 import { DiscoveryLinks, NavigationLinks } from "@/types/interfaces";
+import { useAppContext } from "../context/AppContext";
+
+
+
 const useLinks = () => {
+
+    const { user } = useAppContext()
 
     const links: NavigationLinks[] = [
         
@@ -10,31 +19,35 @@ const useLinks = () => {
          "link": "/home",
          "icon": faHome,
          "notification": 0,
-         "isAuthenticated": false
+         "isAuthenticated": false,
+         "hasNotification": false
         },
         {
          "id": 2,
          "name": "Explore",
          "link": "/home/posts",
          "icon": faCompass,
-         "notification": 1,
-         "isAuthenticated": true
+         "notification": 0,
+         "isAuthenticated": true,
+         "hasNotification": false
         },
         {
          "id": 3,
-         "name": "Star",
-         "link": "/",
-         "icon": faStar,
+         "name": "Notifications",
+         "link": "/home/notifications",
+         "icon": faBell,
          "notification": 3,
-         "isAuthenticated": true
+         "isAuthenticated": true,
+         "hasNotification": user?.hasNotification
         },
         {
          "id": 4,
          "name": "Search",
          "link": "/home/about",
          "icon": faSearch,
-         "notification": 5,
-         "isAuthenticated": true
+         "notification": 0,
+         "isAuthenticated": true,
+         "hasNotification": false
         },
         {
          "id": 5,
@@ -42,7 +55,8 @@ const useLinks = () => {
          "link": "/home/settings",
          "icon": faCircle,
          "notification": 1,
-         "isAuthenticated": true
+         "isAuthenticated": true,
+         "hasNotification": false
         },
        
      

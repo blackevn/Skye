@@ -4,11 +4,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from 'next-auth/providers/google'
 import NextAuth, { AuthOptions } from "next-auth";
 import prisma from "../../../lib/prismadb";
+import { Adapter } from "next-auth/adapters";
 
 
 export const authOptions: AuthOptions = {
 
-    adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
     
     providers: [
       CredentialsProvider({
@@ -39,12 +40,15 @@ export const authOptions: AuthOptions = {
   
           if (!isCorrectPassword) {
             throw new Error('Invalid credentials');
-          }
+          }  
   
           return user;
         }
       })
     ],
+    pages: {
+      signIn: '/'
+    },
     debug: process.env.NODE_ENV === 'development',
     session: {
       strategy: 'jwt',

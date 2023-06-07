@@ -22,7 +22,7 @@ const { formData,
         
         const inputIcon = showPassword ? faEye : faEyeSlash
 
-      const { authVariants, authChildrenVariants } = useVariants()
+      const { authVariants, authChildrenVariants, skyeText } = useVariants()
  
  
   return <>
@@ -37,7 +37,14 @@ const { formData,
 
                 <div className="w-full h-full rounded-2xl overflow-hidden">
                   <div className="h-full w-full bg-no-repeat bg-center bg-cover grid place-items-center">
-        <h1 className="text-9xl font-bold text-white drop-shadow-2xl shadow-blue-400">Skye</h1>
+                  <motion.h1 
+                  variants={skyeText}
+                  initial='hidden'
+                  animate='show'
+                 
+                  className="text-[12rem] font-bold text-white drop-shadow-2xl shadow-blue-400">
+                    Skye
+                  </motion.h1>
                   </div>
                   </div>
 
@@ -52,13 +59,6 @@ const { formData,
                 <div className="flex justify-between w-full absolute top-0 left-0 gap-8 items-center p-4">
 
                   <div className="flex items-center gap-8">
-
-                <motion.p 
-                variants={authChildrenVariants}
-                animate='show'
-                initial='hidden'
-                exit='hidden'
-                className="font-black text-2xl">Skye</motion.p>
 
                 <Link className="m-0 p-0" href="/home">
                 <motion.p 

@@ -1,7 +1,7 @@
 import { EditData } from "@/types/interfaces";
 import { useAppContext } from "@/app/context/AppContext";
 import Button from "../button";
-import { faUser, faXmark} from "@fortawesome/free-solid-svg-icons";
+import { faSave, faUser, faXmark} from "@fortawesome/free-solid-svg-icons";
 import GroupedInput from "../groupedInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextArea from "../textarea";
@@ -30,10 +30,10 @@ import { useEffect } from "react";
           }, [!editProfileToggle]);
 
     return <motion.div
-          animate={controller}
-          variants={editPostVariants}
-          initial='hidden'
-          className="text-gray-600 fixed top-0 right-0 bottom-0 w-full md:w-[70%] lg:w-[50%] h-full mophBg z-[999] p-4 rounded-l-2xl space-y-4">
+            animate={controller}
+            variants={editPostVariants}
+            initial='hidden'
+            className="editPost">
 
           <Button 
           modifier="text-2xl p-0 m-0" 
@@ -45,7 +45,7 @@ import { useEffect } from "react";
 
           <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold ">Edit Profile</h1>
-          <Button text='Save' modifier="bg-white" clickEvent={handleEdit}/>
+          <Button icon={faSave} text='Save' modifier="bg-white" clickEvent={handleEdit}/>
           </div>
 
           <div className="grid grid-cols-2 gap-2">

@@ -1,8 +1,10 @@
 "use client"
 
-import { useContext, createContext, useEffect, useMemo } from "react";
-import { useToggle, useWidth, useHeight, useCurrentUser, usePosts, usePost } from "../hooks";
+import { useContext, createContext, useEffect, useMemo, useCallback } from "react";
+import { useToggle, useWidth, useHeight, useCurrentUser, usePosts, usePost, useUsers } from "../hooks";
 import { ContextData, IProps, Post } from "@/types/interfaces";
+import useDarkMode from "../hooks/useDarkMode";
+import { useRouter } from "next/router";
 
 
 const Context = createContext<ContextData>({
@@ -15,30 +17,34 @@ const Context = createContext<ContextData>({
 
 export const AppContext = ({children}: IProps) => {
 
+
   const { data: user } = useCurrentUser()
-  const { data: posts} = usePosts()
-  const { data: post} = usePost(user?.id as string)
+  const { data: users } = useUsers()
+  
+  const { data: posts = [] } = usePosts( users?.id as string)
+  const  { data: post } = usePost(posts?.id as string)
   const [ toggle, handleToggle ] = useToggle(false)
   const [ adSectionToggle, handleAdSectionToggle ] = useToggle()
   const [ showPassword, handlePassword ] = useToggle(false)
   const [ editProfileToggle, handleEditProfileToggle ] = useToggle(false)
   const [ addPostToggle, handleAddPostToggle ] = useToggle(false)
-   const [ width ] = useWidth()
+  const [ darkMode, setDarkMode ] = useDarkMode()
+  const [ width ] = useWidth()
   const [ height ] = useHeight()
 
+  const toggleDarkMode: () => void = () => {
+    setDarkMode((prevState: boolean) => !prevState)
+  }
 
-  return <Context.Provider  value={{ user, 
-                                     width, 
-                                     toggle, 
-                                     handleToggle, 
-                                     adSectionToggle, 
-                                     handleAdSectionToggle, 
-                                     height, posts, post,
-                                     showPassword, handlePassword,
+
+  return <Context.Provider  value={{ 
+                                     user, width, toggle, handleToggle, 
+                                     adSectionToggle, handleAdSectionToggle, 
+                                     height, posts, showPassword, handlePassword,
                                      editProfileToggle, handleEditProfileToggle,
-                                     addPostToggle, handleAddPostToggle,
-                            
-
+                                     addPostToggle, handleAddPostToggle, darkMode, 
+                                     toggleDarkMode, post, users
+                                     
                                      }}>
 
             {children}

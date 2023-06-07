@@ -11,7 +11,7 @@ const CurrentUserDetails: React.FC<UserProfile> = ({ currentUser }) => {
             <img className="w-full absolute" src={currentUser?.coverImage} alt="" />
         </div>
 
-      <div className='grid grid-cols-2 md:flex gap-4 overflow-auto text-white lg:text-gray-600'>
+      <div className='grid grid-cols-2 md:flex gap-4 overflow-auto text-white lg:text-gray-600 dark:text-white'>
 
                <div className="profileInfoCard">
               
@@ -29,7 +29,7 @@ const CurrentUserDetails: React.FC<UserProfile> = ({ currentUser }) => {
                 
                 <div className="text-center">
                     <h1 className="text-xl">Followers</h1>
-                    <h1 className="text-7xl font-black">0{currentUser?.followingId}</h1>
+                    <h1 className="text-7xl font-black">{currentUser?.followingId.length}</h1>
                 </div>
                </div>
                
@@ -37,7 +37,7 @@ const CurrentUserDetails: React.FC<UserProfile> = ({ currentUser }) => {
                <div className=" profileInfoCard">
                 <div className="text-center">
                 <h1 className="text-xl">Following</h1>
-                    <h1 className="text-7xl font-black">0{currentUser?.followingId}</h1>
+                    <h1 className="text-7xl font-black">{currentUser?.followingId.length}</h1>
                 </div>
                </div>
 
@@ -46,7 +46,7 @@ const CurrentUserDetails: React.FC<UserProfile> = ({ currentUser }) => {
            
                 <div className="text-center">
                     <h1 className="text-xl">Posts</h1>
-                    <h1 className="text-7xl font-black">0{currentUser?.followingId}</h1>
+                    <h1 className="text-7xl font-black">0</h1>
                 </div>
                </div>
 

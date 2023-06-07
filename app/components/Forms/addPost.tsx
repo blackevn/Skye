@@ -1,13 +1,11 @@
 import { useAddPost } from "@/app/hooks";
 import Form from "../form";
 import Button from "../button";
-import Input from "../input";
 import TextArea from "../textarea";
 import Avatar from "../avatar";
-import { useAppContext } from "@/app/context/AppContext";
-import { faPaperPlane, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import ImageUpload from "./imageUpload";
-import { EditData, PostData } from "@/types/interfaces";
+import { PostData } from "@/types/interfaces";
 
 
 const AddPost = () => {
@@ -15,13 +13,11 @@ const AddPost = () => {
   const { defaultPrevent, handlePost, mutatePosts, 
           handleEditChange, user, postData, setPostData } = useAddPost()
 
-  console.log(postData);
    
- 
   return <>
-            <div className="lg:w-[400px]">
+            <div className="lg:w-[400px] text-gray-600 dark:text-gray-200">
 
-                <Form label="What's up" onSubmit={ defaultPrevent } modifier="font-medium">
+                <Form label="What's up" onSubmit={ defaultPrevent } modifier="font-medium ">
                   
                   <div className="flex gap-4 items-start">
                     
@@ -34,7 +30,7 @@ const AddPost = () => {
                       <TextArea  
                       type="text"
                       value={postData.body} 
-                      modifier="w-full text-white font-bold" 
+                      modifier="w-full text-gray-600 font-bold" 
                       placeholder="..."
                       name="body"
                       onChange={handleEditChange}
@@ -49,7 +45,9 @@ const AddPost = () => {
 
                   <div className="w-full flex justify-end">
                   <Button 
-                  clickEvent={handlePost} text="Send" modifier="bg-white bg-blue-400 bg-gradient-to-r from-cyan-500 to-blue-500 text-white" 
+                  clickEvent={handlePost} 
+                  text="Send" 
+                  modifier="blueGradient" 
                   icon={faPaperPlane}/>
                   </div>     
 

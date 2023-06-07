@@ -17,7 +17,7 @@ const page = () => {
 
   return <>
         
-          <UserProfile currentProfileUser={currentProfileUser}  currentUser={currentUser}/> 
+          <UserProfile currentProfileUser={currentProfileUser}  currentUser={currentUser} userId={userId}/> 
 
         </>;
 };

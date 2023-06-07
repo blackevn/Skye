@@ -2,44 +2,47 @@
 
 import { Avatar, ProfileHeader, Button, UserDetails, CurrentUserDetails, EditForm, PostFeed } from '@/app/components';
 import { NextPage } from 'next';
-import { IUser, UserProfile } from '@/types/interfaces';
+import { IUser, Post, UserProfile } from '@/types/interfaces';
 import { faCircle, faEdit, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { useForm } from '@/app/hooks';
 import { useAppContext } from '@/app/context/AppContext';
 import { useAnimationControls } from 'framer-motion';
 import { useEffect } from 'react';
+import { useFollow } from '@/app/hooks';
 
 
-const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser}) => {
 
-  const { editProfileToggle, handleEditProfileToggle, post } = useAppContext()
+const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser, userId}) => {
 
+  const { editProfileToggle, handleEditProfileToggle, posts } = useAppContext()
+  const { isFollowing, toggleFollow } = useFollow(userId as string)
   const controller = useAnimationControls()
   
   const currentUserDisplay =  currentProfileUser?.id === currentUser?.id
 
   const timestamp = currentProfileUser?.createAt;
-
   const formattedDate = timestamp ? new Date(timestamp).toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric'
   }) : '';
-  
-  console.log(post);
+
+
+  const filteredPosts: Post = posts?.filter((post: Post) => post.userId === userId) 
 
   useEffect(() => {
     if (editProfileToggle) {
       controller.start('show')
     }
   }, [editProfileToggle]);
+
+  // ${!currentUserDisplay ? "bg-black/40" : "bg-transparent"}
   
 
   return <>
 
      <EditForm controller={controller}/>
          
-          <ProfileHeader currentProfileUser={currentProfileUser} >
+          <ProfileHeader currentProfileUser={currentProfileUser} currentUser={currentUser} userId={userId}>
 
           <div className={`flex flex-col w-full space-y-4 p-4 bg-opacity-40 lg:bg-opacity-0 ${!currentUserDisplay ? "bg-black" : "bg-none"}`}>
 
@@ -74,7 +77,11 @@ const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser}) =
               
               :
               
-              <Button modifier='bg-white w-full text-black' icon={faUserPlus} text='Follow'/>
+              <Button 
+                clickEvent={toggleFollow} 
+                modifier='bg-white w-full text-black' 
+                icon={faUserPlus} 
+                text={isFollowing ? 'Unfollow' : 'Follow'}/>
            
             }
 
@@ -86,7 +93,7 @@ const UserProfile: NextPage<UserProfile> = ({currentProfileUser, currentUser}) =
 
           </ProfileHeader>
 
-                  
+       { posts && <PostFeed posts={filteredPosts}/> } 
             
         </>
 };
