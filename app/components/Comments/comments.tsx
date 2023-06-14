@@ -114,7 +114,7 @@ const sendComment = () => {
               modifier="blueGradient btn"
               clickEvent={sendComment}
               />
-            </div> : <p>Sign in to comment</p>}
+            </div> : <p className="text-center">Sign in to comment</p>}
          </motion.div>
         </motion.div>
         </>
