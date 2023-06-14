@@ -28,7 +28,7 @@ p, h1, h2, h3, h4, h5, h6{
 
 .nav{
     @apply p-4 justify-between box-border bottom-0 top-16 
-           bg-base-100 dark:bg-black text-gray-600 dark:text-gray-200
+           text-gray-600 dark:text-gray-200
 }
 
 .navLink{

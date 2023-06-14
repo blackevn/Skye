@@ -4,7 +4,6 @@ import { faMoon, faPlusCircle, faSignOut, faSun } from "@fortawesome/free-solid-
 import Button from "./button";
 import NavLink from "./navlink";
 import { useAppContext } from "../context/AppContext"; 
-import { signOut } from "next-auth/react"
 import Avatar from "./avatar";
 import { useRouter } from "next/navigation";
 import { useLinks, useVariants } from "../hooks";
@@ -14,25 +13,13 @@ import Toggle from "./toggle";
 
 const Sidebar: React.FC = () => {
 
-    const { toggle, user, handleAddPostToggle, darkMode, toggleDarkMode, handleToggle } = useAppContext()
+    const { toggle, user, handleAddPostToggle, darkMode, toggleDarkMode, handleToggle, handleLogout } = useAppContext()
     const router = useRouter()
     const { links } = useLinks()
 
     const { navVariants } = useVariants()
 
-    const handleLogout = () => {
-
-        signOut()
-
-        if (!user) {
-
-            router.push("/")
-
-        }
-
-    }
-
-    const authorizedLinks =  links.map( link => <NavLink
+       const authorizedLinks =  links.map( link => <NavLink
                                                 key={link.id}
                                                 name={link.name}
                                                 icon={link.icon}
@@ -59,9 +46,9 @@ const Sidebar: React.FC = () => {
                 onClick={(e: React.MouseEvent ) => {
                     e.stopPropagation(); 
                   }}
-                  className={` ${toggle ? "sm:w-[400px] fixed z-[999]" : "sm:w-[90px] flex z-0"} nav`}>
+                  className={` ${toggle ? "sm:w-[400px] fixed z-[999]" : "sm:w-[90px] flex z-0"} nav animate`}>
 
-                <div className="flex flex-col justify-between h-full">
+                <div className={`flex flex-col justify-between h-full p-2 rounded-3xl ${ toggle && 'mophBg'}`}>
 
                 <div className="space-y-4">
                     
@@ -89,7 +76,7 @@ const Sidebar: React.FC = () => {
                  className={`w-full left-0 relative ${!toggle && "h-16"}`}>
                     
                   { toggle ? <div 
-                            className="gap-4 w-full rounded-lg bg-gray-300 dark:bg-gray-800 p-2 flex-col flex justify-between">
+                            className="gap-4 w-full rounded-2xl bg-gray-300 dark:bg-gray-800 p-2 flex-col flex justify-between">
 
                  <div>
 

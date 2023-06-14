@@ -15,7 +15,7 @@ import { useAnimation } from "framer-motion";
 
 const Nav = () => {
 
-    const { toggle, handleToggle, user, darkMode, toggleDarkMode, handleAddPostToggle } = useAppContext()
+    const { toggle, handleToggle, user, darkMode, toggleDarkMode, handleAddPostToggle, handleLogout } = useAppContext()
     const [ width ] = useWidth()
     const { handleSideToggle, sideToggle } = useSideContext()
     const { data: session } = useSession()
@@ -30,7 +30,50 @@ const Nav = () => {
               className={` p-8 ${toggle ? 'block' : 'hidden'}`}>
 
             {toggle && <div>
-                <p className="text-gray-500 font-semibold">Sign in to create posts, like, comment on other posts and follow others.</p>
+               {  user ?  <div 
+                            className="gap-4 w-full rounded-2xl bg-gray-300 dark:bg-gray-800 p-2 flex-col flex justify-between">
+
+                 <div>
+
+                  <div 
+                  className='flex gap-2 items-center p-1 cursor-pointer relative overflow-hidden max-w-fit'>  
+
+                  <div 
+                     onClick={(e: React.MouseEvent ) => {
+                        e.stopPropagation(); 
+                        toggleDarkMode()
+                      }}
+                  className="top-0 bottom-0 right-0 left-0 z-50 absolute"></div>
+
+                    <Toggle
+                    on={faSun}
+                    off={faMoon}
+                    checked={darkMode}
+                    />
+
+                    <h1>
+                        { darkMode ? 'Light' : 'Dark' }
+                    </h1>
+
+                  </div>
+                  </div>
+
+                 <div className={`flex justify-between ${ !user ? 'hidden' : ''}`}>
+
+
+                    <Button
+                    icon={faSignOut} 
+                    text="Logout" 
+                    clickEvent={handleLogout}/>
+                                        
+                    </div>
+
+                    </div>
+
+                    :
+
+                 <p className="text-gray-500 font-semibold">Sign in to create posts, like, comment on other posts and follow others.</p>
+                 }
               </div>
             }
 
@@ -39,7 +82,7 @@ const Nav = () => {
 
             <div className="pr-4 pl-4 sm:px-9 py-4 flex justify-between items-center">
 
-                <div className="flex gap-8">
+                <div className="flex gap-8 px-2">
 
                 <Toggle
                     on={faXmark}

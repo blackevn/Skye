@@ -177,12 +177,12 @@ const { formData,
                       icon={faArrowAltCircleRight}
                       /> 
 
-                      <Button 
+                      {/* <Button 
                       clickEvent={() => signIn("google", {callbackUrl: "/home"})}
                       text="Google" 
                       modifier="btn w-full"
                       icon={faArrowAltCircleRight}
-                      /> 
+                      />  */}
              
                 </div>
 

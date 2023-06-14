@@ -116,9 +116,9 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
           <div className="flex gap-4">
 
             <Button 
-            modifier={`bg-gray-500/20 p-0 
+            modifier={`mophBg p-0 
             ${ likePostToggle ? "text-red-500 bg-red-500/20" 
-            : "bg-gray-500/20"} 
+            : "mophBg"} 
             ${ hasLiked && "text-red-500 bg-red-500/20"} `}  
             icon={ hasLiked || likePostToggle ? faHeartSolid : faHeart} 
             text={ props?.likedIds?.length >= 1 ? props?.likedIds?.length.toString() : ''} 
@@ -126,14 +126,14 @@ const PostCard: React.FC<Post> = ({ ...props }) => {
 
             <Button 
             clickEvent={handleCommentsToggle} 
-            modifier="bg-gray-500/20 p-0"  
+            modifier="mophBg p-0"  
             icon={ commentsToggle ? faCommentAlt : faCommentAltRegular} 
             text={ props?.comments?.length >= 1 ? props?.comments?.length.toString() : ''}
             />
 
             </div>
             <div>
-            <Button modifier="bg-gray-500/20 p-0"  icon={faShare} text=""/>
+            <Button modifier="mophBg p-0"  icon={faShare} text=""/>
             </div>
           </div>
           </div>

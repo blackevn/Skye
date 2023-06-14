@@ -107,6 +107,7 @@ export interface ContextData {
   handleAddPostToggle?: ClickEvent
   darkMode?: ToggleHandler
   toggleDarkMode?: ClickEvent
+  handleLogout?: ClickEvent
   
 }
 

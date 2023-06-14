@@ -77,9 +77,9 @@ export default function HomeLayout({
               
               :  
 
-              <div>
+              <div className=" pt-4">
 
-                  <div className={` rounded-3xl relative shadow-xl w-full gap-2 grid p-4 dark:bg-gray-800`} >
+                  <div className={` rounded-3xl relative w-full gap-2 grid p-4 mophBg`} >
 
                   <p className="text-gray-500 lg:font-medium">Sign in to create posts, like, comment, and follow others.</p>
 

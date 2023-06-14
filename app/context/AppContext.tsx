@@ -4,7 +4,8 @@ import { useContext, createContext, useEffect, useMemo, useCallback } from "reac
 import { useToggle, useWidth, useHeight, useCurrentUser, usePosts, usePost, useUsers } from "../hooks";
 import { ContextData, IProps, Post } from "@/types/interfaces";
 import useDarkMode from "../hooks/useDarkMode";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react"
 
 
 const Context = createContext<ContextData>({
@@ -20,7 +21,7 @@ export const AppContext = ({children}: IProps) => {
 
   const { data: user } = useCurrentUser()
   const { data: users } = useUsers()
-  
+  const router = useRouter()
   const { data: posts = [] } = usePosts( users?.id as string)
   const  { data: post } = usePost(posts?.id as string)
   const [ toggle, handleToggle ] = useToggle(false)
@@ -36,6 +37,19 @@ export const AppContext = ({children}: IProps) => {
     setDarkMode((prevState: boolean) => !prevState)
   }
 
+  
+  const handleLogout = () => {
+
+    signOut()
+
+    if (!user) {
+
+        router.push("/")
+
+    }
+
+}
+
 
   return <Context.Provider  value={{ 
                                      user, width, toggle, handleToggle, 
@@ -43,7 +57,7 @@ export const AppContext = ({children}: IProps) => {
                                      height, posts, showPassword, handlePassword,
                                      editProfileToggle, handleEditProfileToggle,
                                      addPostToggle, handleAddPostToggle, darkMode, 
-                                     toggleDarkMode, post, users
+                                     toggleDarkMode, post, users, handleLogout
                                      
                                      }}>
 
