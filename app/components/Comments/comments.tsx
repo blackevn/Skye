@@ -25,7 +25,7 @@ type CommentsProps = {
 
  const Comments: React.FC<CommentsProps> = ({ cardWidth, cardPosition, comments = [], handleCommentsToggle, commentsController, postId }) => {
  const { commentsVariants, commentsVariantsChildren } = useVariants()
- const { post, posts, users } = useAppContext()
+ const { post, posts, users, user } = useAppContext()
  const [ postComment, setPostComments ] = useState<Record<string, any>>({ body: ''})
  const { mutate: mutatedComments } = usePost(postId as string)
  const { mutate: mutatedComment } = usePosts()
@@ -97,7 +97,7 @@ const sendComment = () => {
                 </div> }
               </div>
 
-              <div className="flex gap-4 px-4">
+          {user &&    <div className="flex gap-4 px-4">
               <Input 
               placeholder='Comment...'
               modifier='w-full bg-transparent'
@@ -114,7 +114,7 @@ const sendComment = () => {
               modifier="blueGradient btn"
               clickEvent={sendComment}
               />
-            </div>
+            </div>}
          </motion.div>
         </motion.div>
         </>
