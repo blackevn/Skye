@@ -62,7 +62,7 @@ const sendComment = () => {
         <motion.div
         variants={commentsVariantsChildren}
         animate={commentsController}
-        className={`absolute bottom-0 mophBg p-4 m-auto rounded-t-3xl`}
+        className={`absolute bottom-0 mophBg p-4 m-auto rounded-t-3xl text-white`}
         // ref={commentDivRef}
         style={{
             width: `${cardWidth}px`,
