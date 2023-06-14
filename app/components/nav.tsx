@@ -61,8 +61,9 @@ const Sidebar: React.FC = () => {
                 <Button 
                 clickEvent={handleAddPostToggle} 
                 modifier="hover:text-white shadow-xl
-                hover:bg-gradient-to-r dark:bg-gray-800
-                from-cyan-500 to-blue-500 capitalize" 
+                bg-gray-300 hover:bg-gradient-to-r 
+                dark:bg-gray-800 from-cyan-500 to-blue-500 
+                capitalize" 
                 text={toggle ? "Add post" : ""} 
                 icon={faPlusCircle}/>
 

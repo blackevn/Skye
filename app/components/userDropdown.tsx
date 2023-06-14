@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { IProps, IUser } from "@/types/interfaces";
 
 interface UserDropdownProps {
-  children: JSX.Element[]
+  children: JSX.Element[] | JSX.Element
   currentUser?: IUser;
 }
 

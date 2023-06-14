@@ -30,10 +30,11 @@ const Nav = () => {
               className={` p-8 ${toggle ? 'block' : 'hidden'}`}>
 
             {toggle && <div>
-               {  user ?  <div 
-                            className="gap-4 w-full rounded-2xl bg-gray-300 dark:bg-gray-800 p-2 flex-col flex justify-between">
+               <div className="gap-4 w-full rounded-2xl bg-gray-300 dark:bg-gray-800 p-2 flex-col flex justify-between">
 
-                 <div>
+                <div className="flex justify-between">
+
+                 <div className="flex justify-between">
 
                   <div 
                   className='flex gap-2 items-center p-1 cursor-pointer relative overflow-hidden max-w-fit'>  
@@ -67,13 +68,14 @@ const Nav = () => {
                     clickEvent={handleLogout}/>
                                         
                     </div>
+                </div>
 
-                    </div>
 
-                    :
+                 </div>
 
-                 <p className="text-gray-500 font-semibold">Sign in to create posts, like, comment on other posts and follow others.</p>
-                 }
+                  
+               { !user &&  <p className={`text-gray-500 font-semibold py-8`}>Sign in to create posts, like, comment on other posts and follow others.</p>}
+                
               </div>
             }
 
@@ -120,29 +122,7 @@ const Nav = () => {
                   clickEvent={handleAddPostToggle}
                   />
                 <UserDropdown currentUser={user}>
-                <div className="flex justify-between pb-4">
-                  <div 
-                  className='flex gap-2 items-center p-1 cursor-pointer relative overflow-hidden max-w-fit'>  
-                  <div 
-                     onClick={(e: React.MouseEvent ) => {
-                        e.stopPropagation(); 
-                        toggleDarkMode()
-                      }}
-                  className="top-0 bottom-0 right-0 left-0 z-50 absolute"></div>
-                    <Toggle
-                    on={faSun}
-                    off={faMoon}
-                    checked={darkMode}
-                    />
-
-                    <h1>
-                        { darkMode ? 'Light' : 'Dark' }
-                    </h1>
-
-                  </div>
-
-                  <Button clickEvent={() => signOut({callbackUrl: '/', redirect: true})} text="Sign out" icon={faSignOut}/>
-                  </div>
+               
                   <Link href={`/home/profile/${user?.id}`}>
                   <div className=" text-white bg-black/20 p-4 grid place-items-center rounded-xl">
                   <h1 className="font-bold text-xl text-white">{user?.name}</h1>
