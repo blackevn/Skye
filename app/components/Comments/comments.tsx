@@ -57,7 +57,7 @@ const sendComment = () => {
         animate={commentsController}
         id="commentsDiv"
         onClick={handleCommentsToggle}
-        className="z-[998] w-screen h-screen absolute bottom-0 left-0 right-0 top-0 overflow-hidden ">  
+        className="z-[998] w-screen h-screen absolute bottom-0 left-0 right-0 top-0 overflow-hidden text-white">  
 
         <motion.div
         variants={commentsVariantsChildren}
@@ -97,7 +97,7 @@ const sendComment = () => {
                 </div> }
               </div>
 
-          {user &&    <div className="flex gap-4 px-4">
+          {user ? <div className="flex gap-4 px-4">
               <Input 
               placeholder='Comment...'
               modifier='w-full bg-transparent'
@@ -114,7 +114,7 @@ const sendComment = () => {
               modifier="blueGradient btn"
               clickEvent={sendComment}
               />
-            </div>}
+            </div> : <p>Sign in to comment</p>}
          </motion.div>
         </motion.div>
         </>
