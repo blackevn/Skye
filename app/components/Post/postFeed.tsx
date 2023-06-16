@@ -45,7 +45,7 @@ const PostFeed: React.FC<PostFeedProps> = ({ posts }) => {
 
           <div className="grid w-full h-full gap-4 hideScrollBar">
 
-            {postFeed.length >= 1 ? 
+            {postFeed?.length >= 1 ? 
             
                 postFeed
             

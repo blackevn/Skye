@@ -1,29 +1,18 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react";
 import { People, PostFeed } from "../components";
 import { useAppContext } from "../context/AppContext";
+import { usePosts } from "../hooks";
 
-
-let elementWidth: number
 
 const Home = () => {
 
-  const { posts, width } = useAppContext()
-  const homeDivRef = useRef<any>(() => 0)
-  const [ homeWidth, setHomeWidth ] = useState<number>(0)
+  const { width, users } = useAppContext()
 
-  elementWidth = homeWidth
+  const {data: posts, containerRef} = usePosts(users?.id as string)
 
- useEffect(() => {
-  
-     const home = homeDivRef.current.getBoundingClientRect().width
-     setHomeWidth(home)
-
-    }, [width]);
-  
       return <div 
-          ref={homeDivRef} 
+          ref={containerRef} 
           className="box-border max-w-[100%] mb-20 lg:mb-0">
              
           {/* <div className=" w-full box-border overflow-hidden p-2">
@@ -42,8 +31,6 @@ const Home = () => {
 
 }
 
-
-export {elementWidth}
 
 
 export default Home;
