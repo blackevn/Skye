@@ -8,7 +8,6 @@ import { useCurrentUser, useToggle, useLike, useVariants } from "../../hooks";
 import Avatar from "../avatar";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { elementWidth as homeWidth } from "@/app/home/home";
 import { usePathname, useRouter } from "next/navigation";
 import Comments from "../Comments/comments";
 import { toast } from "react-hot-toast";
