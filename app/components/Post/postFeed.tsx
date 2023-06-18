@@ -3,16 +3,16 @@ import React, { useMemo } from "react";
 import Loading from "../loading";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-
+import PostCard from "./postCard";
 
 type PostFeedProps = {
     posts?: Post
 }
 
 const PostFeed: React.FC<PostFeedProps> = ({ posts }) => {
-    const PostCard = useMemo(() => dynamic(() => import("./postCard"), { 
-        ssr: false 
-      }), [posts]);
+    // const PostCard = useMemo(() => dynamic(() => import("./postCard"), { 
+    //     ssr: false 
+    //   }), [posts]);
   
     const postFeed = posts?.map( (post: Post, i: number )  =>
 
